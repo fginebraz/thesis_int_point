@@ -40,25 +40,35 @@ def create_result_dataframes(p):
     mu_df = pd.DataFrame(columns=range(p))
     z_df = pd.DataFrame(columns=range(p))
     tau_df = pd.DataFrame(columns=range(p))
+    mu_pct_df = pd.DataFrame(columns=range(p))     # NEW
+    z_pct_df  = pd.DataFrame(columns=range(p))     # NEW
     obj_function_df = pd.DataFrame(columns=['Objective Function Value'])
     max_complementarity_df = pd.DataFrame(columns=['Maximum complementarity value: max_i (mu_i * z_i)'])
-    active_set_history = pd.DataFrame(columns=range(p)) # drop/test inequalities → p columns
+    active_set_history = pd.DataFrame(columns=range(p))
     active_set_history.index.name = "Iteration"
+    mu_pct_df.index.name = "Iteration"             # NEW
+    z_pct_df.index.name  = "Iteration"             # NEW
 
-    return mu_df, z_df, tau_df, obj_function_df, max_complementarity_df, active_set_history
+    return (mu_df, z_df, tau_df, mu_pct_df, z_pct_df,
+            obj_function_df, max_complementarity_df, active_set_history)
 
-def update_result_dataframes(k, mu, z, tau, obj_function_df_value, max_complementarity_value, p,
+def update_result_dataframes(k, mu, z, tau,
+                             mu_percentage_change, z_percentage_change,   # NEW args
+                             obj_function_df_value, max_complementarity_value, p,
                              mu_df, z_df, tau_df,
+                             mu_pct_df, z_pct_df,                          # NEW args
                              obj_function_df, max_complementarity_df,
                              active_set_history):
-
     mu_df.loc[k] = mu
-    z_df.loc[k] = z
+    z_df.loc[k]  = z
     tau_df.loc[k] = np.full(p, tau)
+    mu_pct_df.loc[k] = mu_percentage_change       # NEW
+    z_pct_df.loc[k]  = z_percentage_change        # NEW
     obj_function_df.loc[k] = obj_function_df_value
     max_complementarity_df.loc[k] = max_complementarity_value
 
-    return mu_df, z_df, tau_df, obj_function_df, max_complementarity_df, active_set_history
+    return (mu_df, z_df, tau_df, mu_pct_df, z_pct_df,
+            obj_function_df, max_complementarity_df, active_set_history)
 
 def highlight_greaterthan(s, threshold, column):
     is_max = pd.Series(data=False, index=s.index)
@@ -139,7 +149,7 @@ def update_active_set_mask( mu, z, Q, k, tau, active_set_history, mudf, mu_perce
                     )
                 if not cond3:
                     failed_conditions.append(
-                        f"z decreased too fast (Δz/z = {z_percentage_change[i]:.2%}, threshold = -3%)"
+                        f"z decreased too fast (Δz/z = {z_percentage_change[i]:.2%}, threshold = -3%)" #STRICT COMPLEMENTARITY
                     )
                 if not cond4:
                     failed_conditions.append(
@@ -221,54 +231,102 @@ def progress_summary_df_clean(problem_results_before_heuristic, metrics_after=No
 
     return summary_df
 
-def build_reduced_system(Q, AT, FT, U, A, F, Z, mu, x, lamda, c, b, d, tau, stable_active_indices):
+def remove_rows_cols_K(Q, AT, FT, D_mu, A, F, D_z, mu, z, x, lamda, c, b, d, tau, stable_active_indices,r_x, r_lamda):
     """
-    Builds the full KKT system M and a reduced system called M1 by eliminating
+    Builds the full KKT system K and a reduced system called K1 by eliminating
     rows/columns corresponding to highlighted indices.
     
     Returns:
-        M      : full KKT system
-        M1     : reduced KKT system (square)
-        U1     : filtered diagonal of mu for reduced system
-        ld1    : reduced RHS vector
+        K      : full KKT system
+        K1     : reduced KKT system (square)
+        D_mu1     : filtered diagonal of mu for reduced system
+        L1    : reduced RHS vector
     """
     # Dimensions
     n = Q.shape[0]
     m = A.shape[0]
-    p = U.shape[0]
+    p = D_mu.shape[0]
 
-    # ────────── Build full system ──────────
-    r1 = np.hstack((Q, AT, -FT @ U))
-    r2 = np.hstack((A, np.zeros((m, m + p))))
-    r3 = np.hstack((-U @ F, np.zeros((p, m)), -Z @ U))
+    # ────────── Build system ──────────¡
+    row1 = np.hstack((Q, -AT, -FT @ D_mu))
+    row2 = np.hstack((-A, np.zeros((m, m + p))))
+    row3 = np.hstack((-D_mu @ F, np.zeros((p, m)), -np.diag(mu * z)))
 
-    M = np.vstack((r1, r2, r3))   # full KKT system
+    K = np.vstack((row1, row2, row3))
+
+    L = np.concatenate((
+        r_x ,   # dual residual
+        r_lamda,                          # primal residual
+        D_mu @ (d - F @ x) + tau               # complementarity row
+    ))
 
     # ────────── Filter mu ──────────
     active_indices = [i for i in range(p) if i not in stable_active_indices]
     mu_filtered = mu[active_indices]
-    U1 = np.diag(mu_filtered)
+    D_mu1 = np.diag(mu_filtered)
 
     # ────────── Build reduced system ──────────
     rows_to_remove = [i + (n + m) for i in stable_active_indices]  # only the μ rows
-    M1 = np.delete(M, rows_to_remove, axis=0)
-    M1 = np.delete(M1, rows_to_remove, axis=1)
+    K1 = np.delete(K, rows_to_remove, axis=0)
+    K1 = np.delete(K1, rows_to_remove, axis=1)
 
-    if M1.shape[0] != M1.shape[1]:
-        raise ValueError("M1 is not square! Check highlighted indices.")
+    if K1.shape[0] != K1.shape[1]:
+        raise ValueError("K1 is not square! Check highlighted indices.")
+
+    L1 = np.delete(L, rows_to_remove, axis=0)
+
+    print(f"Deleted {len(rows_to_remove)} rows/columns. K1 shape: {K1.shape}")
+
+    return K1, D_mu1, L1
+
+def build_reduced_system(Q, AT, FT, D_mu, A, F, D_z, mu, x, lamda, c, b, d, tau, stable_active_indices):
+    """
+    Builds the full KKT system K and a reduced system called K1 by eliminating
+    rows/columns corresponding to highlighted indices.
+    
+    Returns:
+        K      : full KKT system
+        K1     : reduced KKT system (square)
+        D_mu1     : filtered diagonal of mu for reduced system
+        L1    : reduced RHS vector
+    """
+    # Dimensions
+    n = Q.shape[0]
+    m = A.shape[0]
+    p = D_mu.shape[0]
+
+    # ────────── Build full system ──────────
+    r1 = np.hstack((Q, AT, -FT @ D_mu))
+    r2 = np.hstack((A, np.zeros((m, m + p))))
+    r3 = np.hstack((-D_mu @ F, np.zeros((p, m)), -D_z @ D_mu))
+
+    K = np.vstack((r1, r2, r3))   # full KKT system
+
+    # ────────── Filter mu ──────────
+    active_indices = [i for i in range(p) if i not in stable_active_indices]
+    mu_filtered = mu[active_indices]
+    D_mu1 = np.diag(mu_filtered)
+
+    # ────────── Build reduced system ──────────
+    rows_to_remove = [i + (n + m) for i in stable_active_indices]  # only the μ rows
+    K1 = np.delete(K, rows_to_remove, axis=0)
+    K1 = np.delete(K1, rows_to_remove, axis=1)
+
+    if K1.shape[0] != K1.shape[1]:
+        raise ValueError("K1 is not square! Check highlighted indices.")
 
     # ────────── Build reduced RHS vector ──────────
-    ld_full = np.concatenate((
+    L_full = np.concatenate((
         Q @ x + AT @ lamda - FT @ mu + c,   # dual residual
         A @ x - b,                          # primal residual
-        U @ (d - F @ x) + tau               # complementarity row
+        D_mu @ (d - F @ x) + tau               # complementarity row
     ))
 
-    ld1 = np.delete(ld_full, rows_to_remove, axis=0)
+    L1 = np.delete(L_full, rows_to_remove, axis=0)
 
-    print(f"Deleted {len(rows_to_remove)} rows/columns. M1 shape: {M1.shape}")
+    print(f"Deleted {len(rows_to_remove)} rows/columns. K1 shape: {K1.shape}")
 
-    return M, M1, U1, ld1
+    return K, K1, D_mu1, L1
 
 def load_lp_problem(mat_file: str):
     """
