@@ -130,7 +130,7 @@ def update_active_set_mask( mu, z, Q, k, tau, active_set_history, mudf, mu_perce
         cond1 = mask[i]
         cond2 = mu[i] < prev_mu[i]
         cond3 = z_percentage_change[i] > -0.03
-        cond4 = z[i] > 0
+        cond4 = z[i] > 0 # we could remove this as it's interior
         
         if (cond1 and cond2 and cond3 and cond4) or mu[i]==0:
             highlighted_rows.append(i)
@@ -145,7 +145,10 @@ def update_active_set_mask( mu, z, Q, k, tau, active_set_history, mudf, mu_perce
                     )
                 if not cond2:
                     failed_conditions.append(
-                        f"μ did not decrease AT ALL (current: {mu[i]:.2e}, previous: {prev_mu[i]:.2e})"
+                        f"μ did not decrease AT ALL (current: {mu[i]:.2e}, previous: {prev_mu[i]:.2e})",
+                    )
+                    failed_conditions.append(
+                        f"z_{i} is {z[i]:.2e}",
                     )
                 if not cond3:
                     failed_conditions.append(
@@ -157,6 +160,8 @@ def update_active_set_mask( mu, z, Q, k, tau, active_set_history, mudf, mu_perce
                     )
                 
                 print(f"[Iteration {k}] Index {i} stopped meeting at least one criteria to be considered as zero:")
+                print(f"mu_percentage_change_{i} is {mu_percentage_change[i]:.2e}")
+                print(f"z_percentage_change_{i} is {z_percentage_change[i]:.2e}")
                 for reason in failed_conditions:
                     print(f"   - {reason}")
     
