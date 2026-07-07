@@ -36,39 +36,40 @@ def loadProblem(fname, useSparse=False):
         'AE': A  # ← check if this is correct in your structure
     }
 
-def create_result_dataframes(p):
+def create_result_dataframes(n,m,p):
     mu_df = pd.DataFrame(columns=range(p))
     z_df = pd.DataFrame(columns=range(p))
     tau_df = pd.DataFrame(columns=range(p))
-    mu_pct_df = pd.DataFrame(columns=range(p))     # NEW
-    z_pct_df  = pd.DataFrame(columns=range(p))     # NEW
+    mu_pct_df = pd.DataFrame(columns=range(p))    
+    z_pct_df  = pd.DataFrame(columns=range(p))     
     obj_function_df = pd.DataFrame(columns=['Objective Function Value'])
     max_complementarity_df = pd.DataFrame(columns=['Maximum complementarity value: max_i (mu_i * z_i)'])
     active_set_history = pd.DataFrame(columns=range(p))
     active_set_history.index.name = "Iteration"
-    mu_pct_df.index.name = "Iteration"             # NEW
-    z_pct_df.index.name  = "Iteration"             # NEW
+    mu_pct_df.index.name = "Iteration"             
+    z_pct_df.index.name  = "Iteration"             
+    singular_values_df = pd.DataFrame(columns=range(n+m+p))
 
     return (mu_df, z_df, tau_df, mu_pct_df, z_pct_df,
-            obj_function_df, max_complementarity_df, active_set_history)
+            obj_function_df, max_complementarity_df, active_set_history, singular_values_df)
 
 def update_result_dataframes(k, mu, z, tau,
-                             mu_percentage_change, z_percentage_change,   # NEW args
-                             obj_function_df_value, max_complementarity_value, p,
+                             mu_percentage_change, z_percentage_change,   
+                             obj_function_value, max_complementarity_value, n,m,p,
                              mu_df, z_df, tau_df,
-                             mu_pct_df, z_pct_df,                          # NEW args
-                             obj_function_df, max_complementarity_df,
-                             active_set_history):
+                             mu_pct_df, z_pct_df,                          
+                             obj_function_df, max_complementarity_df, singular_values_df,singular_values):
     mu_df.loc[k] = mu
     z_df.loc[k]  = z
     tau_df.loc[k] = np.full(p, tau)
-    mu_pct_df.loc[k] = mu_percentage_change       # NEW
-    z_pct_df.loc[k]  = z_percentage_change        # NEW
-    obj_function_df.loc[k] = obj_function_df_value
+    mu_pct_df.loc[k] = mu_percentage_change      
+    z_pct_df.loc[k]  = z_percentage_change       
+    obj_function_df.loc[k] = obj_function_value
     max_complementarity_df.loc[k] = max_complementarity_value
+    singular_values_df.loc[k] = singular_values
 
     return (mu_df, z_df, tau_df, mu_pct_df, z_pct_df,
-            obj_function_df, max_complementarity_df, active_set_history)
+            obj_function_df, max_complementarity_df, singular_values_df)
 
 def highlight_greaterthan(s, threshold, column):
     is_max = pd.Series(data=False, index=s.index)
