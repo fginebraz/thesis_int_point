@@ -118,28 +118,36 @@ def update_active_set_mask1(mu, z, Q, k, tau, active_set_history, mudf, mu_perce
     active_set_history.loc[k] = highlighted_row
     return active_set_history
 
-def update_active_set_mask( mu, z, Q, k, tau, active_set_history, mudf, mu_percentage_change, z_percentage_change, 
-                           epsilon=1e-5, complementarity_tol=1e-5):
+def update_active_set_mask( mu, z, Q, k, tau, active_set_history, mudf, mu_percentage_change, z_percentage_change,
+                           epsilon=1e-5, complementarity_tol=1e-5, tapia_tol=0.8):
     prev_mu = mudf.loc[k-1].values
-    
+
     # Condition: complementarity is sufficiently small
     mask = mu * z <= complementarity_tol
-    
+
+    # Tapia indicator of mu: successive-iterate ratio mu_i^k / mu_i^{k-1}.
+    # Under strict complementarity it -> 0 for inactive constraints (mu -> 0) and
+    # -> 1 for active ones; a degenerate index parks near 1/2. cond5 below is the
+    # continuous refinement of cond2's binary "mu decreased" test.
+    # Ref: El-Bakry, Tapia & Zhang (1994), SIAM Review 36(1), 45-72.
+    tapia_mu = mu / (prev_mu + 1e-300)
+
     highlighted_rows = []
-    
+
     for i in range(len(mu)):
         cond1 = mask[i]
         cond2 = mu[i] < prev_mu[i]
         cond3 = z_percentage_change[i] > -0.03
         cond4 = z[i] > 0 # we could remove this as it's interior
-        
-        if (cond1 and cond2 and cond3 and cond4) or mu[i]==0:
+        cond5 = tapia_mu[i] < tapia_tol   # Tapia indicator says mu is collapsing to 0
+
+        if (cond1 and cond2 and cond3 and cond4 and cond5) or mu[i]==0:
             highlighted_rows.append(i)
         else:
             # Only print if it was active before → regression
             if len(active_set_history) > 1 and active_set_history.iloc[-1, i] == 1:
                 failed_conditions = []
-                
+
                 if not cond1:
                     failed_conditions.append(
                         f"Complementarity too large (mu*z = {mu[i]*z[i]:.2e} > {complementarity_tol})"
@@ -158,6 +166,10 @@ def update_active_set_mask( mu, z, Q, k, tau, active_set_history, mudf, mu_perce
                 if not cond4:
                     failed_conditions.append(
                         f"z is not positive (z = {z[i]:.2e})"
+                    )
+                if not cond5:
+                    failed_conditions.append(
+                        f"Tapia indicator too high (mu ratio = {tapia_mu[i]:.3f} >= {tapia_tol}: mu not collapsing to 0)"
                     )
                 
                 print(f"[Iteration {k}] Index {i} stopped meeting at least one criteria to be considered as zero:")
