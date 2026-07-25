@@ -119,7 +119,7 @@ def update_active_set_mask1(mu, z, Q, k, tau, active_set_history, mudf, mu_perce
     return active_set_history
 
 def update_active_set_mask( mu, z, Q, k, tau, active_set_history, mudf, mu_percentage_change, z_percentage_change,
-                           epsilon=1e-5, complementarity_tol=1e-5, tapia_tol=0.8):
+                           epsilon=1e-5, complementarity_tol=1e-5, tapia_tol=0.8, use_z_flatness=True, use_tapia=True):
     prev_mu = mudf.loc[k-1].values
 
     # Condition: complementarity is sufficiently small
@@ -137,9 +137,9 @@ def update_active_set_mask( mu, z, Q, k, tau, active_set_history, mudf, mu_perce
     for i in range(len(mu)):
         cond1 = mask[i]
         cond2 = mu[i] < prev_mu[i]
-        cond3 = z_percentage_change[i] > -0.03
+        cond3 = z_percentage_change[i] > -0.03 if use_z_flatness else True
         cond4 = z[i] > 0 # we could remove this as it's interior
-        cond5 = tapia_mu[i] < tapia_tol   # Tapia indicator says mu is collapsing to 0
+        cond5 = tapia_mu[i] < tapia_tol if use_tapia else True
 
         if (cond1 and cond2 and cond3 and cond4 and cond5) or mu[i]==0:
             highlighted_rows.append(i)
