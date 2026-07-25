@@ -1,16 +1,5 @@
 """
-mm_qp_problems.py
-=================
-Answer-key module (kept fully separate from the IPM code).
-Uses Clarabel to get the TRUE solution of each Maros-Meszaros problem, so we can
-later compare our IPM + heuristic against it.
-
-Part 1: load the problems and get their optimal value.
-Part 2: get the solution x* and the "answer key" -- which constraints have mu->0.
-
-The .mat files only store the data:
-    min 1/2 x^T Q x + c^T x    s.t.   rl <= A x <= ru,   lb <= x <= ub
-so we (a) rewrite it in our thesis form and (b) solve it with Clarabel.
+mm_qp_problems.py — load Maros-Meszaros problems, solve with Clarabel, get answer key for mu->0.
 """
 import numpy as np
 import scipy.io
@@ -20,9 +9,6 @@ from qpsolvers import solve_qp
 FOLDER = "mat_files/maros_meszaros"
 SLACK_TOL = 1e-6          # slack above this => the constraint is inactive (mu -> 0)
 
-# Q positive definite, with equality and inequality constraints.
-# The HS* entries are the true QPs (quadratic objective + LINEAR constraints,
-# classification QLR) from Hock & Schittkowski (1981) that are also in this set.
 PROBLEMS = ["TAME",
             "HS21", "HS35", "HS53", "HS76", "HS118",
             "DUAL1", "DUAL2", "DUAL3", "DUAL4", "QPCBLEND"]
