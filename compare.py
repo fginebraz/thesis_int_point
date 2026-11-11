@@ -2,6 +2,8 @@
 compare.py — compare the IPM's mu->0 detection against the Clarabel answer key and print the result tables.
 """
 import builtins
+import contextlib
+import os
 import numpy as np
 import pandas as pd
 import scipy.linalg
@@ -143,6 +145,8 @@ def run_ipm(mat_file, tol=1e-7, kmax=100, use_z_flatness=True, use_tapia=True):
 import numpy as np
 import mm_qp_problems as key
 
+ANSWER_KEY = key.load_answer_key()
+
 # IPM runs the converted mm_*.mat; keep a list of the ones we have.
 PROBLEMS = ["mm_TAME.mat", "mm_HS21.mat", "mm_HS35.mat", "mm_HS53.mat",
             "mm_DUAL1.mat", "mm_DUAL2.mat", "mm_DUAL3.mat", "mm_DUAL4.mat",
@@ -155,9 +159,12 @@ def score(mat_file):
     R = run_ipm(mat_file)
     p = R["p"]
 
-    # ── Step 2: solve the same problem with Clarabel (independent answer key) ──
-    x_star = key.solve(R["Q"], R["c"], R["A"], R["b"], R["F"], R["d"])
-    truth_inactive = key.mu_to_zero(R["F"], R["d"], x_star)   # boolean mask, length p
+    # ── Step 2: load Clarabel answer key from JSON ──
+    name = mat_file.replace("mm_", "").replace(".mat", "")
+    ak = ANSWER_KEY[name]
+    x_star = np.array(ak["x_star"])
+    mu_star = np.array(ak["mu_star"])
+    truth_inactive = key.mu_to_zero(R["F"], R["d"], x_star, mu_star)
 
     # ── Step 3: compare which mu_i we flagged as ->0 vs Clarabel's answer ──
     # Build a boolean array: True at index i if our heuristic said mu_i -> 0
@@ -213,19 +220,20 @@ def score(mat_file):
     recall_no_tp = 100.0 * tp_no_tp / n_true if n_true else float("nan")
     fp_indices_no_tp = np.where(detected_no_tp & ~truth_inactive)[0].tolist()
 
-    # ── Objective values (add back the constant c0 that .mat drops) ──
-    clarabel_obj = 0.5 * x_star @ R["Q"] @ x_star + R["c"] @ x_star + key.C0.get(
-        mat_file.replace("mm_", "").replace(".mat", ""), 0.0)
-    published = key.PUBLISHED.get(mat_file.replace("mm_", "").replace(".mat", ""), None)
-    ipm_obj = 0.5 * R["x"] @ R["Q"] @ R["x"] + R["c"] @ R["x"] + key.C0.get(
-        mat_file.replace("mm_", "").replace(".mat", ""), 0.0)
+    # ── Objective values ──
+    clarabel_obj = ak["clarabel_obj"]
+    published = ak["published"]
+    c0 = ak["c0"]
+    ipm_obj = 0.5 * R["x"] @ R["Q"] @ R["x"] + R["c"] @ R["x"] + c0
+    ipm_obj_elim = 0.5 * E["x"] @ R["Q"] @ E["x"] + R["c"] @ E["x"] + c0
 
-    return dict(label=mat_file.replace("mm_", "").replace(".mat", ""),
+    return dict(label=name,
                 n=R["n"], m=R["m"], p=p, k=R["k"],
                 published=published, clarabel_obj=clarabel_obj, ipm_obj=ipm_obj,
                 n_true=n_true, n_active=int((~truth_inactive).sum()),
                 tp=true_positives, fp=false_positives, recall=recall, sol_err=sol_err,
                 pct=100.0 * len(stable) / p, kK=kK, kK1=kK1, unreliable=unreliable,
+                ipm_obj_elim=ipm_obj_elim,
                 sol_err_elim=sol_err_elim, k_elim=E["k"],
                 elim_at=E["elim_started_at"],
                 tp_no_zf=tp_no_zf, fp_no_zf=fp_no_zf,
@@ -237,7 +245,8 @@ def score(mat_file):
 # =====================================================================
 # PRINT ALL TABLES — run score() on every problem, then print results
 # =====================================================================
-rows = [score(m) for m in PROBLEMS]
+with open(os.devnull, 'w') as _devnull, contextlib.redirect_stdout(_devnull):
+    rows = [score(m) for m in PROBLEMS]
 
 # ---- TABLE 1 ----
 print("\nTABLE 1: BENCHMARK PROBLEMS")
@@ -252,8 +261,9 @@ print(df1)
 print("\nTABLE 2: CLARABEL ANSWER KEY")
 df2 = pd.DataFrame([{
     "problem": r["label"],
-    "Clarabel f*": r["clarabel_obj"], "published": r["published"],
-    "|diff|": abs(r["clarabel_obj"] - (r["published"] or 0.0)),
+    "Clarabel f*": f"{r['clarabel_obj']:.10f}",
+    "published f*": f"{r['published']:.10f}" if r["published"] is not None else "—",
+    "|diff|": f"{abs(r['clarabel_obj'] - (r['published'] or 0.0)):.2e}",
     "mu->0": r["n_true"], "active": r["n_active"]
 } for r in rows]).set_index("problem")
 print(df2)
@@ -280,10 +290,10 @@ df4 = pd.DataFrame([{
 print(df4)
 
 # ---- TABLE 5 ----
-print("\nTABLE 5: TAPIA (with vs without)")
+print("\nTABLE 5: z-STABILITY EFFECT (sin estab z vs con estab z)")
 df5 = pd.DataFrame([{
     "problem": r["label"],
-    "sensib (with)": f"{r['recall']:.0f}%", "FP (with)": r["fp"],
-    "sensib (without)": f"{r['recall_no_tp']:.0f}%", "FP (without)": r["fp_no_tp"],
+    "sensib (sin estab z)": f"{r['recall_no_zf']:.0f}%", "FP (sin estab z)": r["fp_no_zf"],
+    "sensib (con estab z)": f"{r['recall']:.0f}%", "FP (con estab z)": r["fp"],
 } for r in rows]).set_index("problem")
 print(df5)

@@ -138,8 +138,8 @@ def update_active_set_mask( mu, z, Q, k, tau, active_set_history, mudf, mu_perce
         cond1 = mask[i]
         cond2 = mu[i] < prev_mu[i]
         cond3 = z_percentage_change[i] > -0.03 if use_z_flatness else True
-        cond4 = z[i] > 0 # we could remove this as it's interior
-        cond5 = tapia_mu[i] < tapia_tol if use_tapia else True
+        cond4 = tapia_mu[i] < tapia_tol if use_tapia else True
+        cond5 = mu[i] < z[i]
 
         if (cond1 and cond2 and cond3 and cond4 and cond5) or mu[i]==0:
             highlighted_rows.append(i)
@@ -165,13 +165,13 @@ def update_active_set_mask( mu, z, Q, k, tau, active_set_history, mudf, mu_perce
                     )
                 if not cond4:
                     failed_conditions.append(
-                        f"z is not positive (z = {z[i]:.2e})"
+                        f"Tapia indicator too high (mu ratio = {tapia_mu[i]:.3f} >= {tapia_tol}: mu not collapsing to 0)"
                     )
                 if not cond5:
                     failed_conditions.append(
-                        f"Tapia indicator too high (mu ratio = {tapia_mu[i]:.3f} >= {tapia_tol}: mu not collapsing to 0)"
+                        f"mu >= z (mu = {mu[i]:.2e}, z = {z[i]:.2e}): mu is not the smaller variable"
                     )
-                
+
                 print(f"[Iteration {k}] Index {i} stopped meeting at least one criteria to be considered as zero:")
                 print(f"mu_percentage_change_{i} is {mu_percentage_change[i]:.2e}")
                 print(f"z_percentage_change_{i} is {z_percentage_change[i]:.2e}")
@@ -184,20 +184,16 @@ def update_active_set_mask( mu, z, Q, k, tau, active_set_history, mudf, mu_perce
     return active_set_history
 
 
-def active_set_diagnostics(active_set_history,regression_df,p, num_last_iterations=2):
-    # Indices consistently flagged over the last `num_last_iterations` iterations
-    # (a robustness filter / debounce). Keep this window small: fast-converging
-    # problems only spend ~2 iterations near the solution, so a large window
-    # (e.g. 5) starves the elimination on them. Validated against an independent
-    # solver on the Maros-Meszaros set: shrinking 5 -> 2 raised recall (tiny
-    # problems 0% -> 100%, larger ones ~+15pts) with zero false positives.
-    # Default 2; pass a larger value for extra caution on noisy problems.
-    last_iterations = active_set_history.tail(num_last_iterations)
+def active_set_diagnostics(active_set_history,regression_df,p, window=4, min_hits=2):
+    # Stable = flagged in >= min_hits of the last `window` iterations.
+    # 2-of-4 is robust against single-iteration regression noise while
+    # still detecting fast on small problems (where only ~2 iters exist).
+    last_iterations = active_set_history.tail(window)
 
-    # Columns consistently highlighted (1 in all last x iterations)
-    stable_active_indices = last_iterations.columns[(last_iterations == 1).all(axis=0)].tolist()
+    # Columns flagged in at least min_hits of the last window iterations
+    stable_active_indices = last_iterations.columns[(last_iterations.sum(axis=0) >= min_hits)].tolist()
     stable_active_indices = [int(x) for x in stable_active_indices]  # ensure ints
-    print(f"Consistently highlighted in last {num_last_iterations} iterations:", stable_active_indices)
+    print(f"Stable ({min_hits}/{window} window):", stable_active_indices)
     print("How many in percentage of mu's dimension? ", (len(stable_active_indices)/p)*100,"%")
     #print("How many?=", len(stable_active_indices))
     

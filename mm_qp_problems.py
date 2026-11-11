@@ -4,10 +4,10 @@ mm_qp_problems.py — load Maros-Meszaros problems, solve with Clarabel, get ans
 import numpy as np
 import scipy.io
 import scipy.sparse as sp
-from qpsolvers import solve_qp
+from qpsolvers import Problem, solve_problem
 
 FOLDER = "mat_files/maros_meszaros"
-SLACK_TOL = 1e-6          # slack above this => the constraint is inactive (mu -> 0)
+RATIO_TOL = 100           # z/mu above this => clearly inactive (mu -> 0)
 
 PROBLEMS = ["TAME",
             "HS21", "HS35", "HS53", "HS76", "HS118",
@@ -82,37 +82,87 @@ def to_thesis_form(Q, c, A, rl, ru, lb, ub):
 
 
 def solve(Q, c, Aeq, beq, F, d):
-    """Solve  min 1/2 x^T Q x + c^T x  s.t. Aeq x = beq, F x - d >= 0  with Clarabel.
-    qpsolvers uses G x <= h, so F x >= d becomes -F x <= -d.  Returns x*."""
-    return solve_qp(
+    """Solve with Clarabel. Returns the full Solution object (x, z, obj, etc).
+    qpsolvers uses G x <= h, so F x >= d becomes -F x <= -d."""
+    problem = Problem(
         P=sp.csc_matrix(Q), q=c,
         G=sp.csc_matrix(-F), h=-d,
         A=sp.csc_matrix(Aeq) if Aeq.shape[0] else None,
         b=beq if Aeq.shape[0] else None,
-        solver="clarabel",
     )
+    return solve_problem(problem, solver="clarabel")
 
 
-def mu_to_zero(F, d, x):
-    """Answer key: boolean mask of the inactive constraints (mu -> 0).
-    By complementary slackness, if the slack (F x - d)_i > 0 then mu_i = 0."""
+ANSWER_KEY_FILE = "answer_key.json"
+
+
+def mu_to_zero(F, d, x, mu_star):
+    """Answer key: boolean mask of inactive constraints (mu -> 0).
+    Uses z*/mu* ratio: when slack >> dual (ratio > RATIO_TOL), mu clearly went to zero."""
     slack = F @ x - d
-    return slack > SLACK_TOL
+    ratio = slack / np.maximum(mu_star, 1e-20)
+    return ratio > RATIO_TOL
+
+
+def generate_answer_key(problems=None):
+    """Solve all problems with Clarabel, store everything in a JSON file."""
+    import json
+    if problems is None:
+        problems = PROBLEMS
+
+    key = {}
+    for name in problems:
+        Q, c, A, rl, ru, lb, ub = load(name)
+        Q, c, Aeq, beq, F, d = to_thesis_form(Q, c, A, rl, ru, lb, ub)
+        sol = solve(Q, c, Aeq, beq, F, d)
+
+        c0 = C0.get(name, 0.0)
+        slack = F @ sol.x - d
+
+        key[name] = {
+            "n": Q.shape[0],
+            "m": Aeq.shape[0],
+            "p": F.shape[0],
+            "c0": c0,
+            "published": PUBLISHED[name],
+            "source": "Hock-Schittkowski 1981" if name.startswith("HS") else "Maros-Meszaros 1999",
+            "clarabel_obj": sol.obj + c0,
+            "x_star": sol.x.tolist(),
+            "mu_star": sol.z.tolist(),
+            "y_star": list(sol.y) if sol.y is not None else [],
+            "slack": slack.tolist(),
+        }
+        print(f"  {name}: p={F.shape[0]}")
+
+    with open(ANSWER_KEY_FILE, "w") as f:
+        json.dump(key, f, indent=2)
+    print(f"Saved to {ANSWER_KEY_FILE}")
+    return key
+
+
+def load_answer_key():
+    """Load previously generated answer key from JSON."""
+    import json
+    with open(ANSWER_KEY_FILE) as f:
+        return json.load(f)
 
 
 if __name__ == "__main__":
-    print(f"{'problem':10s} {'mu->0':>6} {'active':>7} | "
-          f"{'Clarabel+c0':>12} {'published':>12} {'|diff|':>9}  match?")
-    print("-" * 68)
-    for name in PROBLEMS:
-        Q, c, A, rl, ru, lb, ub = load(name)
-        Q, c, Aeq, beq, F, d = to_thesis_form(Q, c, A, rl, ru, lb, ub)
-        x = solve(Q, c, Aeq, beq, F, d)
-        inactive = mu_to_zero(F, d, x)
+    print("Generating answer key...\n")
+    generate_answer_key()
 
-        clarabel = 0.5 * x @ Q @ x + c @ x + C0.get(name, 0.0)   # add back the dropped constant
-        published = PUBLISHED[name]
-        diff = abs(clarabel - published)
-        ok = "OK" if diff <= 1e-4 * max(1.0, abs(published)) else "CHECK"
-        print(f"{name:10s} {int(inactive.sum()):>6} {int((~inactive).sum()):>7} | "
-              f"{clarabel:>12.6f} {published:>12.6f} {diff:>9.1e}  {ok}")
+    print(f"\n{'problem':10s} {'p':>4} | {'sol.obj+c0':>14} {'published':>14} {'|diff|':>9}  "
+          f"{'z* sorted (all)':>50}")
+    print("-" * 110)
+    ak = load_answer_key()
+    for name in PROBLEMS:
+        r = ak[name]
+        slack = np.sort(np.array(r["slack"]))
+        diff = abs(r["clarabel_obj"] - r["published"])
+        ok = "OK" if diff <= 1e-4 * max(1.0, abs(r["published"])) else "CHECK"
+        # show first few smallest and largest slacks
+        small = ", ".join(f"{v:.1e}" for v in slack[:3])
+        big = ", ".join(f"{v:.1e}" for v in slack[-3:])
+        print(f"{name:10s} {r['p']:>4} | "
+              f"{r['clarabel_obj']:>14.10f} {r['published']:>14.10f} {diff:>9.1e}  "
+              f"[{small}, ..., {big}]  {ok}")

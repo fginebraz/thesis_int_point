@@ -29,7 +29,8 @@ from qpsolvers import Problem, solve_problem
 
 EPS = np.finfo(float).eps
 SLACK_TOL = 1e-6
-STAB_WINDOW = 2            # active_set_diagnostics window (the fixed default)
+STAB_WINDOW = 4            # active_set_diagnostics window size
+STAB_MIN_HITS = 2          # minimum hits within the window
 
 # problem set: (mat_file, label)
 CORE = [("mm_TAME.mat","TAME"), ("mm_HS21.mat","HS21"), ("mm_HS35.mat","HS35"),
@@ -129,7 +130,7 @@ def main():
         slack = np.maximum(F @ x_cl - d, 0.0)
         truth_inactive = slack > SLACK_TOL                       # oracle mu->0
         # heuristic's stable eliminated set
-        stable, _ = _quiet(active_set_diagnostics, R["ash"], R["regression_df"], p, STAB_WINDOW)
+        stable, _ = _quiet(active_set_diagnostics, R["ash"], R["regression_df"], p, STAB_WINDOW, STAB_MIN_HITS)
         heur = np.zeros(p, bool); heur[stable] = True
         tp = int((heur & truth_inactive).sum()); fp = int((heur & ~truth_inactive).sum())
         sol_err = np.linalg.norm(R["x"] - x_cl, np.inf)
