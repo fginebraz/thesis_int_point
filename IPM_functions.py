@@ -112,34 +112,42 @@ def update_active_set_mask1(mu, z, Q, k, tau, active_set_history, mudf, mu_perce
     #highlighted_rows = [i for i in range(len(mu)) if mask[i] and mu[i] <= prev_mu[i] + epsilon]
     
     # Build row of 1s and 0s
-    highlighted_row = [1 if i in highlighted_rows else 0 for i in range(Q.shape[0])]
+    highlighted_row = [1 if i in highlighted_rows else 0 for i in range(len(mu))]
     
     # Store in DataFrame
     active_set_history.loc[k] = highlighted_row
     return active_set_history
 
-def update_active_set_mask( mu, z, Q, k, tau, active_set_history, mudf, mu_percentage_change, z_percentage_change, 
-                           epsilon=1e-5, complementarity_tol=1e-5):
+def update_active_set_mask( mu, z, Q, k, tau, active_set_history, mudf, mu_percentage_change, z_percentage_change,
+                           epsilon=1e-5, complementarity_tol=1e-5, tapia_tol=0.8, use_z_flatness=True, use_tapia=True):
     prev_mu = mudf.loc[k-1].values
-    
+
     # Condition: complementarity is sufficiently small
     mask = mu * z <= complementarity_tol
-    
+
+    # Tapia indicator of mu: successive-iterate ratio mu_i^k / mu_i^{k-1}.
+    # Under strict complementarity it -> 0 for inactive constraints (mu -> 0) and
+    # -> 1 for active ones; a degenerate index parks near 1/2. cond5 below is the
+    # continuous refinement of cond2's binary "mu decreased" test.
+    # Ref: El-Bakry, Tapia & Zhang (1994), SIAM Review 36(1), 45-72.
+    tapia_mu = mu / (prev_mu + 1e-300)
+
     highlighted_rows = []
-    
+
     for i in range(len(mu)):
         cond1 = mask[i]
         cond2 = mu[i] < prev_mu[i]
-        cond3 = z_percentage_change[i] > -0.03
-        cond4 = z[i] > 0 # we could remove this as it's interior
-        
-        if (cond1 and cond2 and cond3 and cond4) or mu[i]==0:
+        cond3 = z_percentage_change[i] > -0.03 if use_z_flatness else True
+        cond4 = tapia_mu[i] < tapia_tol if use_tapia else True
+        cond5 = mu[i] < z[i]
+
+        if (cond1 and cond2 and cond3 and cond4 and cond5) or mu[i]==0:
             highlighted_rows.append(i)
         else:
             # Only print if it was active before → regression
             if len(active_set_history) > 1 and active_set_history.iloc[-1, i] == 1:
                 failed_conditions = []
-                
+
                 if not cond1:
                     failed_conditions.append(
                         f"Complementarity too large (mu*z = {mu[i]*z[i]:.2e} > {complementarity_tol})"
@@ -157,30 +165,35 @@ def update_active_set_mask( mu, z, Q, k, tau, active_set_history, mudf, mu_perce
                     )
                 if not cond4:
                     failed_conditions.append(
-                        f"z is not positive (z = {z[i]:.2e})"
+                        f"Tapia indicator too high (mu ratio = {tapia_mu[i]:.3f} >= {tapia_tol}: mu not collapsing to 0)"
                     )
-                
+                if not cond5:
+                    failed_conditions.append(
+                        f"mu >= z (mu = {mu[i]:.2e}, z = {z[i]:.2e}): mu is not the smaller variable"
+                    )
+
                 print(f"[Iteration {k}] Index {i} stopped meeting at least one criteria to be considered as zero:")
                 print(f"mu_percentage_change_{i} is {mu_percentage_change[i]:.2e}")
                 print(f"z_percentage_change_{i} is {z_percentage_change[i]:.2e}")
                 for reason in failed_conditions:
                     print(f"   - {reason}")
     
-    highlighted_row = [1 if i in highlighted_rows else 0 for i in range(Q.shape[0])]
+    highlighted_row = [1 if i in highlighted_rows else 0 for i in range(len(mu))]
     
     active_set_history.loc[k] = highlighted_row
     return active_set_history
 
 
-def active_set_diagnostics(active_set_history,regression_df,p):
-    # Take last 3 iterations
-    num__last_iterations = 5
-    last_iterations = active_set_history.tail(num__last_iterations)
-    
-    # Columns consistently highlighted (1 in all last x iterations)
-    stable_active_indices = last_iterations.columns[(last_iterations == 1).all(axis=0)].tolist()
+def active_set_diagnostics(active_set_history,regression_df,p, window=4, min_hits=2):
+    # Stable = flagged in >= min_hits of the last `window` iterations.
+    # 2-of-4 is robust against single-iteration regression noise while
+    # still detecting fast on small problems (where only ~2 iters exist).
+    last_iterations = active_set_history.tail(window)
+
+    # Columns flagged in at least min_hits of the last window iterations
+    stable_active_indices = last_iterations.columns[(last_iterations.sum(axis=0) >= min_hits)].tolist()
     stable_active_indices = [int(x) for x in stable_active_indices]  # ensure ints
-    print(f"Consistently highlighted in last {num__last_iterations} iterations:", stable_active_indices)
+    print(f"Stable ({min_hits}/{window} window):", stable_active_indices)
     print("How many in percentage of mu's dimension? ", (len(stable_active_indices)/p)*100,"%")
     #print("How many?=", len(stable_active_indices))
     
@@ -349,6 +362,24 @@ def load_lp_problem(mat_file: str):
         H : dict       Raw data loaded from the .mat file
     """
     print(f"Loading problem from: {mat_file}")
+
+    # --- General QP format (e.g. converted Maros-Meszaros): explicit Q,c,A,b,F,d ---
+    # A file that already carries these fields is a full QP
+    #   min 1/2 x^T Q x + c^T x   s.t.  A x = b,   F x - d >= 0
+    # and is loaded verbatim (Q and the constraints are NOT overwritten).
+    raw = scipy.io.loadmat(f"mat_files/{mat_file}")
+    if all(k in raw for k in ("Q", "c", "A", "b", "F", "d")):
+        Q = np.asarray(raw["Q"], dtype=float)
+        n = Q.shape[0]
+        c = np.asarray(raw["c"], dtype=float).ravel()
+        A = np.asarray(raw["A"], dtype=float).reshape(-1, n)   # (m, n); m may be 0
+        b = np.asarray(raw["b"], dtype=float).ravel()
+        F = np.asarray(raw["F"], dtype=float).reshape(-1, n)   # (p, n)
+        d = np.asarray(raw["d"], dtype=float).ravel()
+        print(f"Problem loaded (general QP). n={n}, m={A.shape[0]}, p={F.shape[0]}")
+        return Q, c, A, b, F, d, raw
+
+    # --- Legacy NETLIB LP -> QP (Q=I, F=I, d=0) ---
     H = loadProblem(f"mat_files/{mat_file}")
 
     # Quadratic term: identity (can be changed if needed)
