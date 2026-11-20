@@ -1,0 +1,1594 @@
+[
+ {
+  "mat": "mm_TAME.mat",
+  "mu0": 2,
+  "cfg": {
+   "todos": {
+    "marked": 2,
+    "ok": 2,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 1": {
+    "marked": 2,
+    "ok": 2,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 2": {
+    "marked": 2,
+    "ok": 2,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 3": {
+    "marked": 2,
+    "ok": 2,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 4": {
+    "marked": 2,
+    "ok": 2,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 5": {
+    "marked": 2,
+    "ok": 2,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 1 ni 5 (Tapia sin apoyo)": {
+    "marked": 2,
+    "ok": 2,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 2 ni 5 (z sin apoyo)": {
+    "marked": 2,
+    "ok": 2,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 1, 2 ni 5 (solo 3 y 4)": {
+    "marked": 2,
+    "ok": 2,
+    "err": 0,
+    "amb": 0
+   }
+  },
+  "culprit": {}
+ },
+ {
+  "mat": "mm_HS21.mat",
+  "mu0": 4,
+  "cfg": {
+   "todos": {
+    "marked": 4,
+    "ok": 4,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 1": {
+    "marked": 4,
+    "ok": 4,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 2": {
+    "marked": 4,
+    "ok": 4,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 3": {
+    "marked": 4,
+    "ok": 4,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 4": {
+    "marked": 4,
+    "ok": 4,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 5": {
+    "marked": 4,
+    "ok": 4,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 1 ni 5 (Tapia sin apoyo)": {
+    "marked": 4,
+    "ok": 4,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 2 ni 5 (z sin apoyo)": {
+    "marked": 4,
+    "ok": 4,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 1, 2 ni 5 (solo 3 y 4)": {
+    "marked": 4,
+    "ok": 4,
+    "err": 0,
+    "amb": 0
+   }
+  },
+  "culprit": {}
+ },
+ {
+  "mat": "mm_HS35.mat",
+  "mu0": 3,
+  "cfg": {
+   "todos": {
+    "marked": 3,
+    "ok": 3,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 1": {
+    "marked": 3,
+    "ok": 3,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 2": {
+    "marked": 3,
+    "ok": 3,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 3": {
+    "marked": 3,
+    "ok": 3,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 4": {
+    "marked": 3,
+    "ok": 3,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 5": {
+    "marked": 3,
+    "ok": 3,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 1 ni 5 (Tapia sin apoyo)": {
+    "marked": 3,
+    "ok": 3,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 2 ni 5 (z sin apoyo)": {
+    "marked": 3,
+    "ok": 3,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 1, 2 ni 5 (solo 3 y 4)": {
+    "marked": 4,
+    "ok": 3,
+    "err": 1,
+    "amb": 0
+   }
+  },
+  "culprit": {}
+ },
+ {
+  "mat": "mm_HS53.mat",
+  "mu0": 10,
+  "cfg": {
+   "todos": {
+    "marked": 10,
+    "ok": 10,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 1": {
+    "marked": 10,
+    "ok": 10,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 2": {
+    "marked": 10,
+    "ok": 10,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 3": {
+    "marked": 10,
+    "ok": 10,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 4": {
+    "marked": 10,
+    "ok": 10,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 5": {
+    "marked": 10,
+    "ok": 10,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 1 ni 5 (Tapia sin apoyo)": {
+    "marked": 10,
+    "ok": 10,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 2 ni 5 (z sin apoyo)": {
+    "marked": 10,
+    "ok": 10,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 1, 2 ni 5 (solo 3 y 4)": {
+    "marked": 10,
+    "ok": 10,
+    "err": 0,
+    "amb": 0
+   }
+  },
+  "culprit": {}
+ },
+ {
+  "mat": "mm_DUAL1.mat",
+  "mu0": 147,
+  "cfg": {
+   "todos": {
+    "marked": 140,
+    "ok": 140,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 1": {
+    "marked": 145,
+    "ok": 145,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 2": {
+    "marked": 140,
+    "ok": 140,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 3": {
+    "marked": 140,
+    "ok": 140,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 4": {
+    "marked": 140,
+    "ok": 140,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 5": {
+    "marked": 140,
+    "ok": 140,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 1 ni 5 (Tapia sin apoyo)": {
+    "marked": 151,
+    "ok": 147,
+    "err": 3,
+    "amb": 1
+   },
+   "sin 2 ni 5 (z sin apoyo)": {
+    "marked": 140,
+    "ok": 140,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 1, 2 ni 5 (solo 3 y 4)": {
+    "marked": 159,
+    "ok": 147,
+    "err": 11,
+    "amb": 1
+   }
+  },
+  "culprit": {
+   "ventana": 3,
+   "1": 4
+  }
+ },
+ {
+  "mat": "mm_DUAL2.mat",
+  "mu0": 188,
+  "cfg": {
+   "todos": {
+    "marked": 185,
+    "ok": 185,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 1": {
+    "marked": 187,
+    "ok": 187,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 2": {
+    "marked": 185,
+    "ok": 185,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 3": {
+    "marked": 185,
+    "ok": 185,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 4": {
+    "marked": 185,
+    "ok": 185,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 5": {
+    "marked": 185,
+    "ok": 185,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 1 ni 5 (Tapia sin apoyo)": {
+    "marked": 189,
+    "ok": 188,
+    "err": 1,
+    "amb": 0
+   },
+   "sin 2 ni 5 (z sin apoyo)": {
+    "marked": 185,
+    "ok": 185,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 1, 2 ni 5 (solo 3 y 4)": {
+    "marked": 192,
+    "ok": 188,
+    "err": 4,
+    "amb": 0
+   }
+  },
+  "culprit": {
+   "ventana": 2,
+   "1": 1
+  }
+ },
+ {
+  "mat": "mm_DUAL3.mat",
+  "mu0": 205,
+  "cfg": {
+   "todos": {
+    "marked": 202,
+    "ok": 202,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 1": {
+    "marked": 204,
+    "ok": 204,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 2": {
+    "marked": 202,
+    "ok": 202,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 3": {
+    "marked": 202,
+    "ok": 202,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 4": {
+    "marked": 202,
+    "ok": 202,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 5": {
+    "marked": 202,
+    "ok": 202,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 1 ni 5 (Tapia sin apoyo)": {
+    "marked": 210,
+    "ok": 205,
+    "err": 2,
+    "amb": 3
+   },
+   "sin 2 ni 5 (z sin apoyo)": {
+    "marked": 202,
+    "ok": 202,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 1, 2 ni 5 (solo 3 y 4)": {
+    "marked": 217,
+    "ok": 205,
+    "err": 9,
+    "amb": 3
+   }
+  },
+  "culprit": {
+   "ventana": 3
+  }
+ },
+ {
+  "mat": "mm_DUAL4.mat",
+  "mu0": 136,
+  "cfg": {
+   "todos": {
+    "marked": 136,
+    "ok": 136,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 1": {
+    "marked": 136,
+    "ok": 136,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 2": {
+    "marked": 136,
+    "ok": 136,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 3": {
+    "marked": 136,
+    "ok": 136,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 4": {
+    "marked": 136,
+    "ok": 136,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 5": {
+    "marked": 136,
+    "ok": 136,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 1 ni 5 (Tapia sin apoyo)": {
+    "marked": 137,
+    "ok": 136,
+    "err": 0,
+    "amb": 1
+   },
+   "sin 2 ni 5 (z sin apoyo)": {
+    "marked": 136,
+    "ok": 136,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 1, 2 ni 5 (solo 3 y 4)": {
+    "marked": 145,
+    "ok": 136,
+    "err": 8,
+    "amb": 1
+   }
+  },
+  "culprit": {}
+ },
+ {
+  "mat": "mm_QPCBLEND.mat",
+  "mu0": 67,
+  "cfg": {
+   "todos": {
+    "marked": 50,
+    "ok": 50,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 1": {
+    "marked": 52,
+    "ok": 52,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 2": {
+    "marked": 50,
+    "ok": 50,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 3": {
+    "marked": 50,
+    "ok": 50,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 4": {
+    "marked": 50,
+    "ok": 50,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 5": {
+    "marked": 64,
+    "ok": 63,
+    "err": 0,
+    "amb": 1
+   },
+   "sin 1 ni 5 (Tapia sin apoyo)": {
+    "marked": 73,
+    "ok": 67,
+    "err": 4,
+    "amb": 2
+   },
+   "sin 2 ni 5 (z sin apoyo)": {
+    "marked": 65,
+    "ok": 63,
+    "err": 1,
+    "amb": 1
+   },
+   "sin 1, 2 ni 5 (solo 3 y 4)": {
+    "marked": 93,
+    "ok": 67,
+    "err": 24,
+    "amb": 2
+   }
+  },
+  "culprit": {
+   "1": 2,
+   "ventana": 9,
+   "5": 6
+  }
+ },
+ {
+  "mat": "lp_afiro.mat",
+  "mu0": 42,
+  "cfg": {
+   "todos": {
+    "marked": 39,
+    "ok": 39,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 1": {
+    "marked": 39,
+    "ok": 39,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 2": {
+    "marked": 39,
+    "ok": 39,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 3": {
+    "marked": 39,
+    "ok": 39,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 4": {
+    "marked": 39,
+    "ok": 39,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 5": {
+    "marked": 39,
+    "ok": 39,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 1 ni 5 (Tapia sin apoyo)": {
+    "marked": 39,
+    "ok": 39,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 2 ni 5 (z sin apoyo)": {
+    "marked": 39,
+    "ok": 39,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 1, 2 ni 5 (solo 3 y 4)": {
+    "marked": 51,
+    "ok": 42,
+    "err": 9,
+    "amb": 0
+   }
+  },
+  "culprit": {
+   "1+2+5": 3
+  }
+ },
+ {
+  "mat": "lp_blend.mat",
+  "mu0": 86,
+  "cfg": {
+   "todos": {
+    "marked": 82,
+    "ok": 82,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 1": {
+    "marked": 82,
+    "ok": 82,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 2": {
+    "marked": 82,
+    "ok": 82,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 3": {
+    "marked": 82,
+    "ok": 82,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 4": {
+    "marked": 82,
+    "ok": 82,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 5": {
+    "marked": 82,
+    "ok": 82,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 1 ni 5 (Tapia sin apoyo)": {
+    "marked": 83,
+    "ok": 83,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 2 ni 5 (z sin apoyo)": {
+    "marked": 82,
+    "ok": 82,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 1, 2 ni 5 (solo 3 y 4)": {
+    "marked": 102,
+    "ok": 85,
+    "err": 17,
+    "amb": 0
+   }
+  },
+  "culprit": {
+   "1+2+5": 2,
+   "ventana": 1,
+   "1+2+4+5": 1
+  }
+ },
+ {
+  "mat": "lp_fit1d.mat",
+  "mu0": 309,
+  "cfg": {
+   "todos": {
+    "marked": 303,
+    "ok": 303,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 1": {
+    "marked": 303,
+    "ok": 303,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 2": {
+    "marked": 303,
+    "ok": 303,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 3": {
+    "marked": 303,
+    "ok": 303,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 4": {
+    "marked": 303,
+    "ok": 303,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 5": {
+    "marked": 303,
+    "ok": 303,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 1 ni 5 (Tapia sin apoyo)": {
+    "marked": 304,
+    "ok": 304,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 2 ni 5 (z sin apoyo)": {
+    "marked": 303,
+    "ok": 303,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 1, 2 ni 5 (solo 3 y 4)": {
+    "marked": 717,
+    "ok": 308,
+    "err": 409,
+    "amb": 0
+   }
+  },
+  "culprit": {
+   "1+2+5": 3,
+   "1+2+4+5": 2,
+   "1+5": 1
+  }
+ },
+ {
+  "mat": "lp_grow7.mat",
+  "mu0": 216,
+  "cfg": {
+   "todos": {
+    "marked": 205,
+    "ok": 205,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 1": {
+    "marked": 211,
+    "ok": 211,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 2": {
+    "marked": 205,
+    "ok": 205,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 3": {
+    "marked": 205,
+    "ok": 205,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 4": {
+    "marked": 205,
+    "ok": 205,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 5": {
+    "marked": 207,
+    "ok": 207,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 1 ni 5 (Tapia sin apoyo)": {
+    "marked": 223,
+    "ok": 216,
+    "err": 7,
+    "amb": 0
+   },
+   "sin 2 ni 5 (z sin apoyo)": {
+    "marked": 207,
+    "ok": 207,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 1, 2 ni 5 (solo 3 y 4)": {
+    "marked": 243,
+    "ok": 216,
+    "err": 27,
+    "amb": 0
+   }
+  },
+  "culprit": {
+   "ventana": 8,
+   "1+5": 3
+  }
+ },
+ {
+  "mat": "lp_grow15.mat",
+  "mu0": 500,
+  "cfg": {
+   "todos": {
+    "marked": 476,
+    "ok": 476,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 1": {
+    "marked": 489,
+    "ok": 489,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 2": {
+    "marked": 476,
+    "ok": 476,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 3": {
+    "marked": 476,
+    "ok": 476,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 4": {
+    "marked": 476,
+    "ok": 476,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 5": {
+    "marked": 482,
+    "ok": 482,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 1 ni 5 (Tapia sin apoyo)": {
+    "marked": 506,
+    "ok": 500,
+    "err": 6,
+    "amb": 0
+   },
+   "sin 2 ni 5 (z sin apoyo)": {
+    "marked": 482,
+    "ok": 482,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 1, 2 ni 5 (solo 3 y 4)": {
+    "marked": 566,
+    "ok": 500,
+    "err": 66,
+    "amb": 0
+   }
+  },
+  "culprit": {
+   "1": 11,
+   "ventana": 9,
+   "1+5": 3,
+   "5": 1
+  }
+ },
+ {
+  "mat": "lp_grow22.mat",
+  "mu0": 752,
+  "cfg": {
+   "todos": {
+    "marked": 689,
+    "ok": 689,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 1": {
+    "marked": 723,
+    "ok": 723,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 2": {
+    "marked": 690,
+    "ok": 690,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 3": {
+    "marked": 689,
+    "ok": 689,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 4": {
+    "marked": 689,
+    "ok": 689,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 5": {
+    "marked": 696,
+    "ok": 696,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 1 ni 5 (Tapia sin apoyo)": {
+    "marked": 764,
+    "ok": 752,
+    "err": 12,
+    "amb": 0
+   },
+   "sin 2 ni 5 (z sin apoyo)": {
+    "marked": 696,
+    "ok": 696,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 1, 2 ni 5 (solo 3 y 4)": {
+    "marked": 849,
+    "ok": 752,
+    "err": 97,
+    "amb": 0
+   }
+  },
+  "culprit": {
+   "1": 28,
+   "ventana": 15,
+   "2": 1,
+   "1+5": 17,
+   "2+4": 1,
+   "5": 1
+  }
+ },
+ {
+  "mat": "lp_kb2.mat",
+  "mu0": 43,
+  "cfg": {
+   "todos": {
+    "marked": 18,
+    "ok": 18,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 1": {
+    "marked": 21,
+    "ok": 21,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 2": {
+    "marked": 18,
+    "ok": 18,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 3": {
+    "marked": 18,
+    "ok": 18,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 4": {
+    "marked": 18,
+    "ok": 18,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 5": {
+    "marked": 31,
+    "ok": 31,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 1 ni 5 (Tapia sin apoyo)": {
+    "marked": 46,
+    "ok": 40,
+    "err": 6,
+    "amb": 0
+   },
+   "sin 2 ni 5 (z sin apoyo)": {
+    "marked": 32,
+    "ok": 32,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 1, 2 ni 5 (solo 3 y 4)": {
+    "marked": 63,
+    "ok": 41,
+    "err": 22,
+    "amb": 0
+   }
+  },
+  "culprit": {
+   "ventana": 7,
+   "5": 10,
+   "2+4": 1,
+   "1": 3,
+   "1+5": 4
+  }
+ },
+ {
+  "mat": "lp_recipe.mat",
+  "mu0": 141,
+  "cfg": {
+   "todos": {
+    "marked": 89,
+    "ok": 89,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 1": {
+    "marked": 114,
+    "ok": 114,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 2": {
+    "marked": 89,
+    "ok": 89,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 3": {
+    "marked": 89,
+    "ok": 89,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 4": {
+    "marked": 89,
+    "ok": 89,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 5": {
+    "marked": 89,
+    "ok": 89,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 1 ni 5 (Tapia sin apoyo)": {
+    "marked": 203,
+    "ok": 141,
+    "err": 62,
+    "amb": 0
+   },
+   "sin 2 ni 5 (z sin apoyo)": {
+    "marked": 89,
+    "ok": 89,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 1, 2 ni 5 (solo 3 y 4)": {
+    "marked": 203,
+    "ok": 141,
+    "err": 62,
+    "amb": 0
+   }
+  },
+  "culprit": {
+   "1+5": 27,
+   "1": 25
+  }
+ },
+ {
+  "mat": "lp_scagr7.mat",
+  "mu0": 172,
+  "cfg": {
+   "todos": {
+    "marked": 0,
+    "ok": 0,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 1": {
+    "marked": 0,
+    "ok": 0,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 2": {
+    "marked": 0,
+    "ok": 0,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 3": {
+    "marked": 157,
+    "ok": 157,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 4": {
+    "marked": 0,
+    "ok": 0,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 5": {
+    "marked": 0,
+    "ok": 0,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 1 ni 5 (Tapia sin apoyo)": {
+    "marked": 0,
+    "ok": 0,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 2 ni 5 (z sin apoyo)": {
+    "marked": 0,
+    "ok": 0,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 1, 2 ni 5 (solo 3 y 4)": {
+    "marked": 0,
+    "ok": 0,
+    "err": 0,
+    "amb": 0
+   }
+  },
+  "culprit": {
+   "ventana": 157,
+   "1+2+5": 14,
+   "1+2+4+5": 1
+  }
+ },
+ {
+  "mat": "lp_scsd1.mat",
+  "mu0": 55,
+  "cfg": {
+   "todos": {
+    "marked": 50,
+    "ok": 50,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 1": {
+    "marked": 52,
+    "ok": 52,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 2": {
+    "marked": 50,
+    "ok": 50,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 3": {
+    "marked": 50,
+    "ok": 50,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 4": {
+    "marked": 50,
+    "ok": 50,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 5": {
+    "marked": 50,
+    "ok": 50,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 1 ni 5 (Tapia sin apoyo)": {
+    "marked": 55,
+    "ok": 55,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 2 ni 5 (z sin apoyo)": {
+    "marked": 50,
+    "ok": 50,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 1, 2 ni 5 (solo 3 y 4)": {
+    "marked": 394,
+    "ok": 55,
+    "err": 339,
+    "amb": 0
+   }
+  },
+  "culprit": {
+   "ventana": 2,
+   "1+5": 3
+  }
+ },
+ {
+  "mat": "lp_scsd6.mat",
+  "mu0": 160,
+  "cfg": {
+   "todos": {
+    "marked": 157,
+    "ok": 157,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 1": {
+    "marked": 157,
+    "ok": 157,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 2": {
+    "marked": 157,
+    "ok": 157,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 3": {
+    "marked": 157,
+    "ok": 157,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 4": {
+    "marked": 157,
+    "ok": 157,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 5": {
+    "marked": 157,
+    "ok": 157,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 1 ni 5 (Tapia sin apoyo)": {
+    "marked": 160,
+    "ok": 160,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 2 ni 5 (z sin apoyo)": {
+    "marked": 157,
+    "ok": 157,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 1, 2 ni 5 (solo 3 y 4)": {
+    "marked": 849,
+    "ok": 160,
+    "err": 689,
+    "amb": 0
+   }
+  },
+  "culprit": {
+   "1+5": 3
+  }
+ },
+ {
+  "mat": "lp_sctap1.mat",
+  "mu0": 419,
+  "cfg": {
+   "todos": {
+    "marked": 401,
+    "ok": 401,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 1": {
+    "marked": 401,
+    "ok": 401,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 2": {
+    "marked": 401,
+    "ok": 401,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 3": {
+    "marked": 401,
+    "ok": 401,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 4": {
+    "marked": 401,
+    "ok": 401,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 5": {
+    "marked": 401,
+    "ok": 401,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 1 ni 5 (Tapia sin apoyo)": {
+    "marked": 402,
+    "ok": 402,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 2 ni 5 (z sin apoyo)": {
+    "marked": 401,
+    "ok": 401,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 1, 2 ni 5 (solo 3 y 4)": {
+    "marked": 532,
+    "ok": 419,
+    "err": 113,
+    "amb": 0
+   }
+  },
+  "culprit": {
+   "1+2+5": 18
+  }
+ },
+ {
+  "mat": "lp_share2b.mat",
+  "mu0": 108,
+  "cfg": {
+   "todos": {
+    "marked": 106,
+    "ok": 106,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 1": {
+    "marked": 107,
+    "ok": 107,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 2": {
+    "marked": 106,
+    "ok": 106,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 3": {
+    "marked": 106,
+    "ok": 106,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 4": {
+    "marked": 106,
+    "ok": 106,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 5": {
+    "marked": 106,
+    "ok": 106,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 1 ni 5 (Tapia sin apoyo)": {
+    "marked": 107,
+    "ok": 107,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 2 ni 5 (z sin apoyo)": {
+    "marked": 106,
+    "ok": 106,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 1, 2 ni 5 (solo 3 y 4)": {
+    "marked": 149,
+    "ok": 107,
+    "err": 42,
+    "amb": 0
+   }
+  },
+  "culprit": {
+   "ventana": 2
+  }
+ },
+ {
+  "mat": "lp_stair.mat",
+  "mu0": 421,
+  "cfg": {
+   "todos": {
+    "marked": 402,
+    "ok": 402,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 1": {
+    "marked": 403,
+    "ok": 403,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 2": {
+    "marked": 402,
+    "ok": 402,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 3": {
+    "marked": 402,
+    "ok": 402,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 4": {
+    "marked": 402,
+    "ok": 402,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 5": {
+    "marked": 402,
+    "ok": 402,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 1 ni 5 (Tapia sin apoyo)": {
+    "marked": 403,
+    "ok": 403,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 2 ni 5 (z sin apoyo)": {
+    "marked": 402,
+    "ok": 402,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 1, 2 ni 5 (solo 3 y 4)": {
+    "marked": 537,
+    "ok": 417,
+    "err": 120,
+    "amb": 0
+   }
+  },
+  "culprit": {
+   "1": 1,
+   "1+2+5": 13,
+   "1+2+4+5": 5
+  }
+ },
+ {
+  "mat": "lp_stocfor1.mat",
+  "mu0": 110,
+  "cfg": {
+   "todos": {
+    "marked": 110,
+    "ok": 110,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 1": {
+    "marked": 110,
+    "ok": 110,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 2": {
+    "marked": 110,
+    "ok": 110,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 3": {
+    "marked": 110,
+    "ok": 110,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 4": {
+    "marked": 110,
+    "ok": 110,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 5": {
+    "marked": 110,
+    "ok": 110,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 1 ni 5 (Tapia sin apoyo)": {
+    "marked": 110,
+    "ok": 110,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 2 ni 5 (z sin apoyo)": {
+    "marked": 110,
+    "ok": 110,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 1, 2 ni 5 (solo 3 y 4)": {
+    "marked": 145,
+    "ok": 110,
+    "err": 35,
+    "amb": 0
+   }
+  },
+  "culprit": {}
+ },
+ {
+  "mat": "lp_fit1p.mat",
+  "mu0": 843,
+  "cfg": {
+   "todos": {
+    "marked": 833,
+    "ok": 833,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 1": {
+    "marked": 833,
+    "ok": 833,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 2": {
+    "marked": 833,
+    "ok": 833,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 3": {
+    "marked": 833,
+    "ok": 833,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 4": {
+    "marked": 833,
+    "ok": 833,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 5": {
+    "marked": 833,
+    "ok": 833,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 1 ni 5 (Tapia sin apoyo)": {
+    "marked": 833,
+    "ok": 833,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 2 ni 5 (z sin apoyo)": {
+    "marked": 833,
+    "ok": 833,
+    "err": 0,
+    "amb": 0
+   },
+   "sin 1, 2 ni 5 (solo 3 y 4)": {
+    "marked": 1210,
+    "ok": 836,
+    "err": 374,
+    "amb": 0
+   }
+  },
+  "culprit": {
+   "1+2+5": 4,
+   "ventana": 1,
+   "1+2+4+5": 5
+  }
+ }
+]

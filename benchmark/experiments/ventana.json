@@ -1,0 +1,569 @@
+[
+ {
+  "mat": "mm_TAME.mat",
+  "cfg": {
+   "2 de 4 (oficial)": {
+    "removed": 2,
+    "err": 0,
+    "kkt_khat": 0.0
+   },
+   "1 de 1 (sin ventana)": {
+    "removed": 2,
+    "err": 0,
+    "kkt_khat": 0.0
+   },
+   "1 de 4": {
+    "removed": 2,
+    "err": 0,
+    "kkt_khat": 0.0
+   }
+  },
+  "inactive": 2
+ },
+ {
+  "mat": "mm_HS21.mat",
+  "cfg": {
+   "2 de 4 (oficial)": {
+    "removed": 4,
+    "err": 0,
+    "kkt_khat": 1.0884623108445702e-17
+   },
+   "1 de 1 (sin ventana)": {
+    "removed": 4,
+    "err": 0,
+    "kkt_khat": 1.0884623108445702e-17
+   },
+   "1 de 4": {
+    "removed": 4,
+    "err": 0,
+    "kkt_khat": 1.0884623108445702e-17
+   }
+  },
+  "inactive": 4
+ },
+ {
+  "mat": "mm_HS35.mat",
+  "cfg": {
+   "2 de 4 (oficial)": {
+    "removed": 3,
+    "err": 0,
+    "kkt_khat": 8.881784197001252e-16
+   },
+   "1 de 1 (sin ventana)": {
+    "removed": 3,
+    "err": 0,
+    "kkt_khat": 8.881784197001252e-16
+   },
+   "1 de 4": {
+    "removed": 3,
+    "err": 0,
+    "kkt_khat": 8.881784197001252e-16
+   }
+  },
+  "inactive": 3
+ },
+ {
+  "mat": "mm_HS53.mat",
+  "cfg": {
+   "2 de 4 (oficial)": {
+    "removed": 10,
+    "err": 0,
+    "kkt_khat": 4.440892098500626e-16
+   },
+   "1 de 1 (sin ventana)": {
+    "removed": 10,
+    "err": 0,
+    "kkt_khat": 4.440892098500626e-16
+   },
+   "1 de 4": {
+    "removed": 10,
+    "err": 0,
+    "kkt_khat": 4.440892098500626e-16
+   }
+  },
+  "inactive": 10
+ },
+ {
+  "mat": "mm_DUAL1.mat",
+  "cfg": {
+   "2 de 4 (oficial)": {
+    "removed": 140,
+    "err": 0,
+    "kkt_khat": 3.373444900616145e-14
+   },
+   "1 de 1 (sin ventana)": {
+    "removed": 143,
+    "err": 0,
+    "kkt_khat": 2.869351823776504e-14
+   },
+   "1 de 4": {
+    "removed": 143,
+    "err": 0,
+    "kkt_khat": 2.869351823776504e-14
+   }
+  },
+  "inactive": 149
+ },
+ {
+  "mat": "mm_DUAL2.mat",
+  "cfg": {
+   "2 de 4 (oficial)": {
+    "removed": 185,
+    "err": 0,
+    "kkt_khat": 8.881784197001252e-16
+   },
+   "1 de 1 (sin ventana)": {
+    "removed": 187,
+    "err": 0,
+    "kkt_khat": 1.27675647831893e-15
+   },
+   "1 de 4": {
+    "removed": 187,
+    "err": 0,
+    "kkt_khat": 1.27675647831893e-15
+   }
+  },
+  "inactive": 188
+ },
+ {
+  "mat": "mm_DUAL3.mat",
+  "cfg": {
+   "2 de 4 (oficial)": {
+    "removed": 202,
+    "err": 0,
+    "kkt_khat": 6.669077177753649e-11
+   },
+   "1 de 1 (sin ventana)": {
+    "removed": 205,
+    "err": 0,
+    "kkt_khat": 6.651654616022283e-11
+   },
+   "1 de 4": {
+    "removed": 205,
+    "err": 0,
+    "kkt_khat": 6.651654616022283e-11
+   }
+  },
+  "inactive": 208
+ },
+ {
+  "mat": "mm_DUAL4.mat",
+  "cfg": {
+   "2 de 4 (oficial)": {
+    "removed": 136,
+    "err": 0,
+    "kkt_khat": 1.0646318991567043e-14
+   },
+   "1 de 1 (sin ventana)": {
+    "removed": 136,
+    "err": 0,
+    "kkt_khat": 1.0646318991567043e-14
+   },
+   "1 de 4": {
+    "removed": 136,
+    "err": 0,
+    "kkt_khat": 1.0646318991567043e-14
+   }
+  },
+  "inactive": 137
+ },
+ {
+  "mat": "mm_QPCBLEND.mat",
+  "cfg": {
+   "2 de 4 (oficial)": {
+    "removed": 50,
+    "err": 0,
+    "kkt_khat": 1.4165212217687838e-10
+   },
+   "1 de 1 (sin ventana)": {
+    "removed": 59,
+    "err": 0,
+    "kkt_khat": 1.3965387731109266e-10
+   },
+   "1 de 4": {
+    "removed": 59,
+    "err": 0,
+    "kkt_khat": 1.3965387731109266e-10
+   }
+  },
+  "inactive": 69
+ },
+ {
+  "mat": "lp_afiro.mat",
+  "cfg": {
+   "2 de 4 (oficial)": {
+    "removed": 39,
+    "err": 0,
+    "kkt_khat": 5.684341886080802e-14
+   },
+   "1 de 1 (sin ventana)": {
+    "removed": 39,
+    "err": 0,
+    "kkt_khat": 5.684341886080802e-14
+   },
+   "1 de 4": {
+    "removed": 39,
+    "err": 0,
+    "kkt_khat": 5.684341886080802e-14
+   }
+  },
+  "inactive": 42
+ },
+ {
+  "mat": "lp_blend.mat",
+  "cfg": {
+   "2 de 4 (oficial)": {
+    "removed": 82,
+    "err": 0,
+    "kkt_khat": 2.079239558305801e-13
+   },
+   "1 de 1 (sin ventana)": {
+    "removed": 83,
+    "err": 0,
+    "kkt_khat": 2.8507925187160055e-13
+   },
+   "1 de 4": {
+    "removed": 83,
+    "err": 0,
+    "kkt_khat": 2.8507925187160055e-13
+   }
+  },
+  "inactive": 86
+ },
+ {
+  "mat": "lp_fit1d.mat",
+  "cfg": {
+   "2 de 4 (oficial)": {
+    "removed": 303,
+    "err": 0,
+    "kkt_khat": 1.1776843562222227e-10
+   },
+   "1 de 1 (sin ventana)": {
+    "removed": 303,
+    "err": 0,
+    "kkt_khat": 1.1776843562222227e-10
+   },
+   "1 de 4": {
+    "removed": 303,
+    "err": 0,
+    "kkt_khat": 1.1776843562222227e-10
+   }
+  },
+  "inactive": 309
+ },
+ {
+  "mat": "lp_fit1p.mat",
+  "cfg": {
+   "2 de 4 (oficial)": {
+    "removed": 833,
+    "err": 0,
+    "kkt_khat": 2.6193447411060333e-10
+   },
+   "1 de 1 (sin ventana)": {
+    "removed": 834,
+    "err": 0,
+    "kkt_khat": 4.0745362639427185e-10
+   },
+   "1 de 4": {
+    "removed": 834,
+    "err": 0,
+    "kkt_khat": 4.0745362639427185e-10
+   }
+  },
+  "inactive": 843
+ },
+ {
+  "mat": "lp_grow7.mat",
+  "cfg": {
+   "2 de 4 (oficial)": {
+    "removed": 205,
+    "err": 0,
+    "kkt_khat": 7.52693602906779e-10
+   },
+   "1 de 1 (sin ventana)": {
+    "removed": 213,
+    "err": 0,
+    "kkt_khat": 7.521147754552494e-10
+   },
+   "1 de 4": {
+    "removed": 213,
+    "err": 0,
+    "kkt_khat": 7.521147754552494e-10
+   }
+  },
+  "inactive": 216
+ },
+ {
+  "mat": "lp_grow15.mat",
+  "cfg": {
+   "2 de 4 (oficial)": {
+    "removed": 476,
+    "err": 0,
+    "kkt_khat": 1.0671102841324533e-13
+   },
+   "1 de 1 (sin ventana)": {
+    "removed": 485,
+    "err": 0,
+    "kkt_khat": 1.074433610675214e-13
+   },
+   "1 de 4": {
+    "removed": 487,
+    "err": 0,
+    "kkt_khat": 1.0736249567239268e-13
+   }
+  },
+  "inactive": 500
+ },
+ {
+  "mat": "lp_grow22.mat",
+  "cfg": {
+   "2 de 4 (oficial)": {
+    "removed": 689,
+    "err": 0,
+    "kkt_khat": 8.29073988899704e-10
+   },
+   "1 de 1 (sin ventana)": {
+    "removed": 704,
+    "err": 0,
+    "kkt_khat": 8.276111820811415e-10
+   },
+   "1 de 4": {
+    "removed": 706,
+    "err": 0,
+    "kkt_khat": 6.184542051797901e-10
+   }
+  },
+  "inactive": 752
+ },
+ {
+  "mat": "lp_kb2.mat",
+  "cfg": {
+   "2 de 4 (oficial)": {
+    "removed": 18,
+    "err": 0,
+    "kkt_khat": 3.955832623275812e-12
+   },
+   "1 de 1 (sin ventana)": {
+    "removed": 25,
+    "err": 0,
+    "kkt_khat": 8.051213125012668e-12
+   },
+   "1 de 4": {
+    "removed": 28,
+    "err": 0,
+    "kkt_khat": 1.82495838102828e-11
+   }
+  },
+  "inactive": 43
+ },
+ {
+  "mat": "lp_recipe.mat",
+  "cfg": {
+   "2 de 4 (oficial)": {
+    "removed": 89,
+    "err": 0,
+    "kkt_khat": 3.7621818799973906e-10
+   },
+   "1 de 1 (sin ventana)": {
+    "removed": 89,
+    "err": 0,
+    "kkt_khat": 3.7621818799973906e-10
+   },
+   "1 de 4": {
+    "removed": 89,
+    "err": 0,
+    "kkt_khat": 3.7621818799973906e-10
+   }
+  },
+  "inactive": 141
+ },
+ {
+  "mat": "lp_scagr7.mat",
+  "cfg": {
+   "2 de 4 (oficial)": {
+    "removed": 0,
+    "err": 0,
+    "kkt_khat": null
+   },
+   "1 de 1 (sin ventana)": {
+    "removed": 157,
+    "err": 0,
+    "kkt_khat": 5.115907697472721e-12
+   },
+   "1 de 4": {
+    "removed": 157,
+    "err": 0,
+    "kkt_khat": 5.115907697472721e-12
+   }
+  },
+  "inactive": 172
+ },
+ {
+  "mat": "lp_scsd1.mat",
+  "cfg": {
+   "2 de 4 (oficial)": {
+    "removed": 50,
+    "err": 0,
+    "kkt_khat": 5.809879836813614e-10
+   },
+   "1 de 1 (sin ventana)": {
+    "removed": 52,
+    "err": 0,
+    "kkt_khat": 5.798754389760094e-10
+   },
+   "1 de 4": {
+    "removed": 52,
+    "err": 0,
+    "kkt_khat": 5.798754389760094e-10
+   }
+  },
+  "inactive": 55
+ },
+ {
+  "mat": "lp_scsd6.mat",
+  "cfg": {
+   "2 de 4 (oficial)": {
+    "removed": 157,
+    "err": 0,
+    "kkt_khat": 3.1128117129050937e-10
+   },
+   "1 de 1 (sin ventana)": {
+    "removed": 157,
+    "err": 0,
+    "kkt_khat": 3.1128117129050937e-10
+   },
+   "1 de 4": {
+    "removed": 157,
+    "err": 0,
+    "kkt_khat": 3.1128117129050937e-10
+   }
+  },
+  "inactive": 160
+ },
+ {
+  "mat": "lp_sctap1.mat",
+  "cfg": {
+   "2 de 4 (oficial)": {
+    "removed": 401,
+    "err": 0,
+    "kkt_khat": 1.4818017274503446e-10
+   },
+   "1 de 1 (sin ventana)": {
+    "removed": 401,
+    "err": 0,
+    "kkt_khat": 1.4818017274503446e-10
+   },
+   "1 de 4": {
+    "removed": 401,
+    "err": 0,
+    "kkt_khat": 1.4818017274503446e-10
+   }
+  },
+  "inactive": 419
+ },
+ {
+  "mat": "lp_sctap2.mat",
+  "cfg": {
+   "2 de 4 (oficial)": {
+    "removed": 1570,
+    "err": 0,
+    "kkt_khat": 5.968558980384842e-13
+   },
+   "1 de 1 (sin ventana)": {
+    "removed": 1570,
+    "err": 0,
+    "kkt_khat": 5.968558980384842e-13
+   },
+   "1 de 4": {
+    "removed": 1570,
+    "err": 0,
+    "kkt_khat": 5.968558980384842e-13
+   }
+  },
+  "inactive": 1584
+ },
+ {
+  "mat": "lp_sctap3.mat",
+  "cfg": {
+   "2 de 4 (oficial)": {
+    "removed": 2177,
+    "err": 0,
+    "kkt_khat": 2.053352263747649e-11
+   },
+   "1 de 1 (sin ventana)": {
+    "removed": 2179,
+    "err": 0,
+    "kkt_khat": 3.423486137740219e-11
+   },
+   "1 de 4": {
+    "removed": 2179,
+    "err": 0,
+    "kkt_khat": 3.423486137740219e-11
+   }
+  },
+  "inactive": 2195
+ },
+ {
+  "mat": "lp_share2b.mat",
+  "cfg": {
+   "2 de 4 (oficial)": {
+    "removed": 106,
+    "err": 0,
+    "kkt_khat": 5.226929999935237e-12
+   },
+   "1 de 1 (sin ventana)": {
+    "removed": 108,
+    "err": 0,
+    "kkt_khat": 3.871791776077771e-12
+   },
+   "1 de 4": {
+    "removed": 108,
+    "err": 0,
+    "kkt_khat": 3.871791776077771e-12
+   }
+  },
+  "inactive": 108
+ },
+ {
+  "mat": "lp_stair.mat",
+  "cfg": {
+   "2 de 4 (oficial)": {
+    "removed": 402,
+    "err": 0,
+    "kkt_khat": 9.094947017729282e-13
+   },
+   "1 de 1 (sin ventana)": {
+    "removed": 402,
+    "err": 0,
+    "kkt_khat": 9.094947017729282e-13
+   },
+   "1 de 4": {
+    "removed": 402,
+    "err": 0,
+    "kkt_khat": 9.094947017729282e-13
+   }
+  },
+  "inactive": 421
+ },
+ {
+  "mat": "lp_stocfor1.mat",
+  "cfg": {
+   "2 de 4 (oficial)": {
+    "removed": 110,
+    "err": 0,
+    "kkt_khat": 9.094947017729282e-13
+   },
+   "1 de 1 (sin ventana)": {
+    "removed": 110,
+    "err": 0,
+    "kkt_khat": 9.094947017729282e-13
+   },
+   "1 de 4": {
+    "removed": 110,
+    "err": 0,
+    "kkt_khat": 9.094947017729282e-13
+   }
+  },
+  "inactive": 110
+ }
+]
