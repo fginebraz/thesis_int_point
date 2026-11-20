@@ -26,12 +26,12 @@ for name in PROBS:
                x_err_K=float(np.linalg.norm(RK["x"] - x_cl, np.inf)), x_err_Kh=float(np.linalg.norm(RH["x"] - x_cl, np.inf)))
     for tag, R in (("K", RK), ("Kh", RH)):
         row[tag] = dict(kkt=float(R["kkt"]), f=float(R["f"]), ferr_rel=float(abs(R["f"] - f_cl) / max(1, abs(f_cl))),
-                        kappa1=R["extra"][0]["kappa"], kappa5=R["extra"][4]["kappa"],
+                        kappa1=R["extra"][0]["kappa"], kappa5=R["extra"][4]["kappa"], kappa_final=R["kappa_final"],
                         kkt_traj=[t["kkt"] for t in R["extra"]], alpha=[t["alpha"] for t in R["extra"]])
     row["secs"] = round(time.time() - t0, 1)
     res.append(row)
     json.dump(res, open(OUT, "w"), indent=1)
     print(f"{row['name']:13s} {row['n_removed']}/{row['n_inactive']} err {row['n_err']}  "
-          f"kK {row['K']['kappa1']:.1e}->{row['K']['kappa5']:.1e}  kKh {row['Kh']['kappa1']:.1e}->{row['Kh']['kappa5']:.1e}  "
+          f"kK {row['K']['kappa1']:.1e}->{row['K']['kappa_final']:.1e}  kKh {row['Kh']['kappa1']:.1e}->{row['Kh']['kappa_final']:.1e}  "
           f"KKT K {row['K']['kkt']:.1e} Kh {row['Kh']['kkt']:.1e}  ferr {row['K']['ferr_rel']:.1e}/{row['Kh']['ferr_rel']:.1e}  {row['secs']}s", flush=True)
 print("DONE", flush=True)

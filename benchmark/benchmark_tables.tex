@@ -34,22 +34,23 @@
 % Marcas de referencias pendientes al unir con main.tex. Borrar macro y usos al limpiar.
 \newcommand{\falta}[1]{{\color{red}\footnotesize\textsf{[FALTA: #1]}}}
 
-\section*{WHAT WE WILL DO NEXT? HAHA}\label{sec:experimentos}
+\section*{Metodología}\label{sec:experimentos}
 
 En esta sección describiremos la estrategia computacional para la heurística propuesta al final del \hyperref[subsec:heuristica]{capítulo anterior}. La metodología será la siguiente:
+\renewcommand{\labelenumii}{\theenumi.\arabic{enumii}}
 \begin{enumerate}
-    \item Primero compararemos la precisión de nuestros resultados del IPM contra un solver independiente (Clarabel) y contra los valores publicados en la literatura, usando 9~problemas provenientes de dos fuentes: Maros \& Meszaros (MM)\footnote{Maros, I.\ y Meszaros, C.\ (1999). ``A Repository of Convex Quadratic Programming Problems''. \textit{Optim.\ Methods Softw.}, 11(1--4), 671--681. \href{https://doi.org/10.1080/10556789908805768}{DOI: 10.1080/10556789908805768}. Archivos \texttt{.mat}: \href{https://github.com/YimingYAN/QP-Test-Problems}{github.com/YimingYAN/QP-Test-Problems}.} y Hock \& Schittkowski (HS) \footnote{Hock, W.\ y Schittkowski, K.\ (1981). \textit{Test Examples for Nonlinear Programming Codes}. Lecture Notes in Economics and Mathematical Systems, vol.~187, Springer. \href{https://doi.org/10.1007/978-3-642-48320-2}{DOI: 10.1007/978-3-642-48320-2}.} (Tabla~\ref{tab:benchmark_problems}).
+    \item Construiremos una solución de referencia:
+    \begin{enumerate}
+        \item Compararemos la precisión de nuestros resultados del IPM contra un solver independiente (Clarabel) y contra los valores publicados en la literatura, usando 9~problemas provenientes de dos fuentes: Maros \& Meszaros (MM)\footnote{Maros, I.\ y Meszaros, C.\ (1999). ``A Repository of Convex Quadratic Programming Problems''. \textit{Optim.\ Methods Softw.}, 11(1--4), 671--681. \href{https://doi.org/10.1080/10556789908805768}{DOI: 10.1080/10556789908805768}. Archivos \texttt{.mat}: \href{https://github.com/YimingYAN/QP-Test-Problems}{github.com/YimingYAN/QP-Test-Problems}.} y Hock \& Schittkowski (HS) \footnote{Hock, W.\ y Schittkowski, K.\ (1981). \textit{Test Examples for Nonlinear Programming Codes}. Lecture Notes in Economics and Mathematical Systems, vol.~187, Springer. \href{https://doi.org/10.1007/978-3-642-48320-2}{DOI: 10.1007/978-3-642-48320-2}.} (Tabla~\ref{tab:benchmark_problems}).
 \falta{estas dos notas al pie deben ser \texttt{\textbackslash cite\{marosmeszaros1999\}} y \texttt{\textbackslash cite\{hock1981\}}; ambas ya están en bibliography.bib}
-    \item Con la solución de Clarabel, identificaremos cuáles $\mu_i$ tienden realmente a cero; esta será nuestra referencia.
+        \item Con la solución de Clarabel, identificaremos cuáles $\mu_i$ tienden a cero; esta será nuestra referencia.
+    \end{enumerate}
     \item Aplicaremos los cinco criterios durante el IPM y veremos si las restricciones que marca el método coinciden con las de Clarabel.
     \item Eliminaremos esas filas y columnas para obtener un sistema reducido $\widehat{K}$ con mejor condicionamiento.
     \item Usaremos $\widehat{K}$ para continuar iterando y compararemos la solución con la que se obtiene al seguir iterando con~$K$.
     \item Aplicaremos el método a algunos problemas de dimensiones mayores y compararemos contra el trabajo de Montiel\falta{\texttt{\textbackslash cite\{MontielGonzalez2023\}}}, contrastando con el uso de precondicionadores.
     \item Por último, analizaremos cómo afecta cada criterio a nuestros resultados y a la eliminación de restricciones.
 \end{enumerate}
-Los experimentos se ejecutan en un MacBook Pro con procesador Intel Core i5-6360U a 2.0\,GHz, 8\,GB de RAM, macOS~12.7, Python~3.14, NumPy~2.4 y SciPy~1.17. La aritmética es de punto flotante IEEE~754 de doble precisión ($\varepsilon_{\text{mach}} \approx 2.2 \times 10^{-16}$).
-
-\bigskip
 
 % ---------------------------------------------------------------------------
 % NO SE IMPRIME. "Recordatorio del problema": repite \eqref{P1} y el sistema K de
@@ -112,7 +113,7 @@ Los experimentos se ejecutan en un MacBook Pro con procesador Intel Core i5-6360
 % ---------------------------------------------------------------------------
 
 % =====================================================================
-\section*{Problemas de prueba}
+\section*{Problemas de prueba y solución de referencia}
 % =====================================================================
 
 Los valores de referencia de los problemas HS son analíticos (del libro); los de MM son los que reportan los autores (obtenidos con el solver BPMPD\footnote{BPMPD: solver de punto interior para programación lineal y cuadrática desarrollado por Meszaros (1999).}\falta{usar \texttt{\textbackslash cite\{Meszaros1999bpmpd\}}}).
@@ -135,17 +136,19 @@ DUAL1    &  85 &  1 & 170 &  $0.03501297$   & MM \\
 DUAL2    &  96 &  1 & 192 &  $0.03373368$   & MM \\
 DUAL3    & 111 &  1 & 222 &  $0.13575584$   & MM \\
 DUAL4    &  75 &  1 & 150 &  $0.74609084$   & MM \\
-QPCBLEND &  83 & 43 & 114 & $-0.00784254$   & MM \\
+QPCBLEND$^{*}$ &  83 & 43 & 114 & $-0.00784254$   & MM \\
 \bottomrule
 \end{tabular}
+
+\vspace{0.3em}
+\footnotesize
+$^{*}$QPCBLEND no cumple la independencia lineal de las restricciones activas que supusimos en la Sección~\ref{subsec:casos_mu_z}; lo incluimos para ver qué pasa fuera de esa hipótesis.
 \end{table}
 
 
-% =====================================================================
-\section*{Metodología}
-% =====================================================================
+Los experimentos se ejecutan en un MacBook Pro con procesador Intel Core i5-6360U a 2.0\,GHz, 8\,GB de RAM, macOS~12.7, Python~3.14, NumPy~2.4 y SciPy~1.17. La aritmética es de punto flotante IEEE~754 de doble precisión ($\varepsilon_{\text{mach}} \approx 2.2 \times 10^{-16}$).
 
-\subsection*{Paso 1: Verificación contra un solver independiente}
+\subsection*{Paso 1.1: Verificación contra un solver independiente}
 
 %Desafortunadamente, los resultados de referencia no incluyen los valores del vector $\mu$; lo cual quisiéramos utilizar para comparar con los resultados de nuestro IPM.
 %Sin embargo, podemos aprovechar utilizar un solver independiente que nos arroje para obtener datos tales como la holgura $z^*$ y el multiplicador dual $\mu^*$.
@@ -183,7 +186,7 @@ QPCBLEND & $-0.00784254$\hldig{20} & $-0.00784254$\hldig{09} & $1.1\times10^{-9}
 Los dígitos resaltados indican dónde $f^*$ diverge del valor publicado.
 \end{table}
 
-\subsection*{Paso 1b: Clasificación de referencia (Clarabel)}
+\subsection*{Paso 1.2: Clasificación de referencia (Clarabel)}
 
 La función \texttt{solve\_problem} nos proporciona la solución primal~$x^*$, los multiplicadores duales de desigualdad~$\mu^*$ y de igualdad~$\lambda^*$, además del valor objetivo reportado anteriormente~$f^*$.
 Dicha función, desafortunadamente, no proporciona información sobre dichos valores durante las iteraciones del método, entonces sí debemos tomar en cuenta que el criterio para determinar que $\mu_i \to 0$ será algo arbitrario, pero con justificación.
@@ -200,7 +203,7 @@ La Figura~\ref{fig:ratio_separation} muestra los 869~cocientes ordenados de meno
 
 \begin{figure}[ht]
 \centering
-\includegraphics[width=0.85\textwidth]{ratio_separation.pdf}
+\includegraphics[width=0.85\textwidth]{figures/fig_ratio_separation.pdf}
 \caption{Cocientes $z_i^*/\mu_i^*$ de las 869~restricciones de los 9~problemas, ordenados de menor a mayor. La zona sombreada ($\frac{1}{100} \le z_i^*/\mu_i^* \le 100$) contiene solo 7~restricciones.}
 \label{fig:ratio_separation}
 \end{figure}
@@ -232,17 +235,16 @@ $\mu\to0$: restricciones con $z_i^*/\mu_i^* > 100$. \% del total = $\mu\to0$ / $
 \end{table}
 
 % =====================================================================
-\section*{Resultados}
+\section*{Resultados y discusión}
 % =====================================================================
 
-Aplicamos los cinco criterios a los 9~problemas y evaluamos tres aspectos: si el método marca correctamente las restricciones con $\mu_i \to 0$, cómo cambia el condicionamiento de~$\widehat{K}$, y si las iteraciones adicionales con $\widehat{K}$ mejoran la solución. En estos 9~problemas usamos la tolerancia $\varepsilon_{\text{tol}} = 10^{-7}$.
+Aplicamos los cinco criterios en cada iteración del IPM y, al converger, marcamos las restricciones que los cumplieron en al menos 2 de las últimas 4.
+Evaluamos tres aspectos: si el método marca correctamente las restricciones con $\mu_i \to 0$, cómo cambia el condicionamiento de~$\widehat{K}$, y si las iteraciones adicionales con $\widehat{K}$ mejoran la solución. En estos 9~problemas usamos la tolerancia $\varepsilon_{\text{tol}} = 10^{-7}$.
 Después repetimos el proceso con los problemas de NETLIB, que son de mayor dimensión, y al final analizamos más a fondo el papel de cada criterio en estos resultados.
 
 \subsection*{Paso 2: Detección de $\mu_i \to 0$}
 
-Utilizando los cinco criterios de la Tabla~\ref{tab:detection_criteria}, el método no marca ninguna restricción como $\mu_i \to 0$ cuando no lo es (0~errores en los 9~problemas, Tabla~\ref{tab:ipm_detection}).
-QPCBLEND identifica el 75\% (50 de 67) porque el criterio $\mu_i < z_i$ descarta restricciones donde $\mu_i$ y $z_i$ son de magnitud similar y no es claro cuál tiende a cero.
-Sin embargo, es preferible ser conservador a marcar una restricción de manera incorrecta.
+Utilizando los cinco criterios de la Tabla~\ref{tab:detection_criteria}, el método no marca ninguna restricción como $\mu_i \to 0$ cuando no lo es (utilizando como referencia los resultados de la tabla~\ref{tab:clarabel_classification}).
 
 % TABLE 3
 \begin{table}[H]
@@ -251,9 +253,9 @@ Sin embargo, es preferible ser conservador a marcar una restricción de manera i
 \label{tab:ipm_detection}
 \begin{tabular}{l r r r r r r}
 \toprule
-         & & \multicolumn{1}{c}{Clarabel} & \multicolumn{3}{c}{Detección (IPM)} & \\
+         & & \multicolumn{1}{c}{Clarabel} & \multicolumn{3}{c}{Nuestro IPM} & \\
 \cmidrule(lr){3-3} \cmidrule(lr){4-6}
-Problema & Iter($K$) & $\mu_i\!\to\!0$ & Det. & \% & Err. & $\|x-x^*\|_\infty$ \\
+Problema & Iter($K$) & $\mu_i\!\to\!0$ & Eliminadas & \% & Err. & $\|x-x^*\|_\infty$ \\
 \midrule
 TAME     &  6 &   2 &   2 & 100\% & 0 & $1.1\times10^{-16}$ \\
 HS21     & 11 &   4 &   4 & 100\% & 0 & $8.7\times10^{-8}$ \\
@@ -269,13 +271,24 @@ QPCBLEND & 22 &  67 &  50 &  75\% & 0 & $6.0\times10^{-5}$ \\
 
 \vspace{0.3em}
 \footnotesize
-\% Detección\ = Detectados / $\mu\to0$ real. Erróneas = restricciones detectadas como $\mu\to0$ que según Clarabel no lo son.
+Eliminadas: restricciones que se eliminan al converger el IPM con~$K$. \\ \%: porcentaje de las que tienen $\mu_i \to 0$ según Clarabel. \\ Err.: eliminadas que según Clarabel no tienen $\mu_i \to 0$.
 \end{table}
 
+QPCBLEND identifica el 75\% (50 de 67).
+Sin embargo, es preferible ser conservador a marcar una restricción de manera incorrecta; \hyperref[sec:analisis_criterios]{más adelante} vemos qué impide marcar las restantes.
+La Figura~\ref{fig:tres_casos} muestra tres restricciones de QPCBLEND: una que se elimina (a), una clasificada por Clarabel con $\mu_i \to 0$ pero que no marcamos nosotros en la heurística (b), y una activa (c).
+En la segunda, al detenerse el IPM, $\mu_i$ y $z_i$ aún son demasiado cercanos para marcarlos según los criterios establecidos.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{figures/fig_mu_z_tres_casos.pdf}
+\caption{$\mu_i$ (continua) y $z_i$ (punteada) por iteración en tres restricciones de QPCBLEND. Los puntos indican las iteraciones en que se cumplen los cinco criterios.}
+\label{fig:tres_casos}
+\end{figure}
 
 \subsection*{Paso 3: Condicionamiento de $\widehat{K}$}
 
-En la Tabla~\ref{tab:conditioning} se muestran los números de condición de $K$ y $\widehat{K}$, en la primera y en la quinta iteración adicional.
+En la Tabla~\ref{tab:conditioning} se muestran los números de condición de $K$ y $\widehat{K}$, al converger y tras 5~iteraciones adicionales.
 
 % TABLE 4
 \begin{table}[H]
@@ -285,39 +298,57 @@ En la Tabla~\ref{tab:conditioning} se muestran los números de condición de $K$
 \small
 \begin{tabular}{l r r r r r}
 \toprule
- & & \multicolumn{2}{c}{Iteración 1} & \multicolumn{2}{c}{Iteración 5} \\
+ & & \multicolumn{2}{c}{Al converger} & \multicolumn{2}{c}{Tras 5 iteraciones adicionales} \\
 \cmidrule(lr){3-4} \cmidrule(lr){5-6}
-Problema & \% eliminación & $\kappa(K)$ & $\kappa(\widehat{K})$ & $\kappa(K)$ & $\kappa(\widehat{K})$ \\
+Problema & \% eliminación & $\kappa_1(K)$ & $\kappa_1(\widehat{K})$ & $\kappa_1(K)$ & $\kappa_1(\widehat{K})$ \\
 \midrule
-TAME       & 100\% & $2.56\times10^{9}$  & $5.00\times10^{0}$  & $2.56\times10^{17}$ & $5.00\times10^{0}$  \\
-HS21       &  80\% & $3.50\times10^{8}$  & $7.50\times10^{1}$  & $3.41\times10^{16}$ & $7.50\times10^{1}$  \\
-HS35       &  75\% & $3.29\times10^{9}$  & $7.81\times10^{1}$  & $2.84\times10^{17}$ & $7.81\times10^{1}$  \\
-HS53       & 100\% & $2.49\times10^{9}$  & $1.28\times10^{2}$  & $2.49\times10^{17}$ & $1.28\times10^{2}$  \\
-DUAL1$^*$  &  82\% & $2.73\times10^{13}$ & $1.33\times10^{12}$ & $1.16\times10^{19}$ & $2.16\times10^{18}$ \\
-DUAL2$^*$  &  96\% & $2.86\times10^{14}$ & $8.68\times10^{11}$ & $2.11\times10^{21}$ & $4.20\times10^{19}$ \\
-DUAL3$^*$  &  91\% & $7.51\times10^{13}$ & $1.43\times10^{12}$ & $4.76\times10^{18}$ & $4.50\times10^{17}$ \\
-DUAL4$^*$  &  91\% & $6.42\times10^{15}$ & $1.27\times10^{10}$ & $2.07\times10^{19}$ & $1.71\times10^{15}$ \\
-QPCBLEND   &  44\% & $1.77\times10^{11}$ & $1.77\times10^{11}$ & $8.43\times10^{15}$ & $8.12\times10^{15}$ \\
+TAME       & 100\% & $2.56\times10^{9}$ & $5.00\times10^{0}$ & $2.56\times10^{19}$ & $5.00\times10^{0}$ \\
+HS21       & 80\% & $3.50\times10^{8}$ & $7.50\times10^{1}$ & $3.38\times10^{18}$ & $7.50\times10^{1}$ \\
+HS35       & 75\% & $3.29\times10^{9}$ & $7.81\times10^{1}$ & $2.74\times10^{19}$ & $7.81\times10^{1}$ \\
+HS53       & 100\% & $2.49\times10^{9}$ & $1.28\times10^{2}$ & $2.49\times10^{19}$ & $1.28\times10^{2}$ \\
+DUAL1     & 82\% & $2.73\times10^{13}$ & $1.33\times10^{12}$ & $4.24\times10^{20}$ & $7.94\times10^{19}$ \\
+DUAL2     & 96\% & $2.86\times10^{14}$ & $8.68\times10^{11}$ & $1.62\times10^{23}$ & $3.66\times10^{21}$ \\
+DUAL3     & 91\% & $7.51\times10^{13}$ & $1.43\times10^{12}$ & $1.95\times10^{19}$ & $1.83\times10^{18}$ \\
+DUAL4     & 91\% & $6.42\times10^{15}$ & $1.27\times10^{10}$ & $1.14\times10^{21}$ & $1.71\times10^{17}$ \\
+QPCBLEND   & 44\% & $1.77\times10^{11}$ & $1.77\times10^{11}$ & $3.70\times10^{17}$ & $1.85\times10^{17}$ \\
 \bottomrule
 \end{tabular}
 
 \vspace{0.3em}
 \scriptsize
-Iteración $j$: matriz que se resuelve en la $j$-ésima iteración adicional; la iteración~1 corresponde al punto de convergencia.\\
-$^*$\,$\sigma_{\min}(K) < \varepsilon\,\sigma_{\max}(K)$: el número de condición puede no ser confiable por cercanía a singularidad numérica.
+Al converger: matriz en el último iterado del IPM con~$K$. Tras 5 iteraciones adicionales: matriz en el punto final.
 \end{table}
 
-Se observan tres comportamientos. En los problemas pequeños (TAME, HS21, HS35, HS53), la eliminación reduce $\widehat{K}$ a un sistema de dimensión muy baja (2--8) y $\kappa$ baja de $\sim\!10^{9}$ a $\sim\!10^{1}$--$10^{2}$.
-En los problemas DUAL, la mejora es grande (por ejemplo DUAL4: de $10^{15}$ a $10^{10}$) pero $\kappa(\widehat{K})$ sigue siendo alto. A pesar de que cada fila de~$F$ tiene una sola entrada no nula (al igual que en los problemas pequeños), $Q$ es densa (${\sim}97\%$ de entradas no nulas) y domina el condicionamiento del sistema reducido, que aún tiene dimensión ${\sim}90$--$116$.
-En QPCBLEND, $\kappa(\widehat{K}) = \kappa(K)$. A diferencia de los demás problemas, donde cada fila de~$F$ es $\pm e_j$ (una sola entrada no nula), QPCBLEND tiene filas de~$F$ con hasta 10~entradas no nulas y coeficientes de hasta ${\sim}66$, lo que acopla las variables. Al eliminar solo el 44\% de las restricciones, las 64~restantes siguen introduciendo esa dependencia y el condicionamiento no mejora.
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{figures/fig_kappa_mmhs.pdf}
+\caption{$\kappa_1(K)$ y $\kappa_1(\widehat{K})$ al converger y tras 5~iteraciones adicionales. La flecha va de $K$ a $\widehat{K}$.}
+\label{fig:kappa_mmhs}
+\end{figure}
 
-\subsection*{Paso 4: Iteraciones adicionales con $\widehat{K}$}
+Por lo general, al converger el IPM observamos tres comportamientos. En los problemas pequeños (TAME, HS21, HS35, HS53), la eliminación reduce $K$ a un sistema $\widehat{K}$ de dimensión muy baja (2--8) y $\kappa_1$ disminuye de $\sim\!10^{9}$ a $10^{0}$--$10^{2}$.
 
-Para comparar, también continuamos iterando con $K$ completo, a pesar de ya haber alcanzado la tolerancia indicada.
-Es importante notar que los valores publicados de los problemas DUAL y QPCBLEND fueron obtenidos con un solver (BPMPD) y no son analíticos. Por lo tanto, la comparación de la precisión está limitada por el número de dígitos reportados en la referencia original.
+En los problemas DUAL, la mejora es grande (por ejemplo DUAL4: de $10^{15}$ a $10^{10}$), pero $\kappa_1(\widehat{K})$ sigue siendo alto. En los problemas DUAL 1–3 quedan en $\widehat{K}$ algunas restricciones con $\mu_i \to 0$ que no marcamos, cuyas filas siguen siendo casi cero. En DUAL4 no queda ninguna; ahí $\kappa_1(\widehat{K})$ es alto porque las filas que quedan mezclan valores de tamaños muy distintos (de ${\sim}10^{-1}$ a ${\sim}10^{-12}$).
 
-Para aislar el efecto de la eliminación, se comparan $K$ y $\widehat{K}$ con exactamente 5~iteraciones adicionales después de la convergencia.
-La Tabla~\ref{tab:f_K_vs_Khat} compara los valores de $f^*$ obtenidos con ambos sistemas, junto con la norma KKT que alcanza~$\widehat{K}$.
+En QPCBLEND, vemos que $\kappa_1(\widehat{K}) = \kappa_1(K)$, incluso si eliminamos todas las restricciones con $\mu_i \to 0$ según Clarabel. La causa es otra: en la solución hay 88 restricciones activas (43 igualdades y 45 desigualdades), pero solo 82 son linealmente independientes; las demás son combinación de ellas. Es justo el caso que excluimos en la Sección~\ref{subsec:casos_mu_z}, al suponer que las filas de $A$ y $F_i$ son linealmente independientes, y no se arregla quitando filas de~$K$, porque las restricciones dependientes son activas y se quedan en~$\widehat{K}$.
+
+Finalmente, al seguir iterando, $\kappa_1(K)$ crece muy rápido: en 5~iteraciones pasa de $10^{8}$--$10^{15}$ a $10^{17}$--$10^{23}$ (Figura~\ref{fig:kappa_mmhs}). En los problemas pequeños, $\kappa_1(\widehat{K})$ no cambia; en los DUAL también crece, pero se mantiene por debajo de $\kappa_1(K)$; y en QPCBLEND ambos crecen igual.
+
+\medskip
+Para entender estos tres comportamientos, veamos qué sucede con los valores propios de~$K$. Cada restricción con $\mu_i \to 0$ aporta a~$K$ un valor propio de tamaño ${\sim}\mu_i z_i$, que desaparece al eliminar su fila y su columna, mientras los demás prácticamente no cambian (Sección~\ref{subsec:espectro}). La Figura~\ref{fig:eigenvalues} lo ilustra con un problema representativo de cada comportamiento: en HS21 desaparecen todos los valores propios pequeños, en DUAL2 quedan los de las restricciones que no marcamos. En QPCBLEND quedan, además, los de las restricciones linealmente dependientes.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{figures/fig_eigenvalues_strip.pdf}
+\caption{Los valores propios de $K$ y $\widehat{K}$ al converger, en valor absoluto y en escala logarítmica.}
+\label{fig:eigenvalues}
+\end{figure}
+
+\subsection*{Paso 4: Precisión de $f^*$ con $\widehat{K}$}
+
+Después de converger, llevamos a cabo 5~iteraciones adicionales con $\widehat{K}$ y, para comparar, las mismas 5 con $K$.
+Es importante recordar que los valores publicados de los problemas DUAL y QPCBLEND fueron obtenidos con un solver y no son analíticos. Por lo tanto, la comparación de la precisión está limitada por el número de dígitos reportados en la referencia original.
+La Tabla~\ref{tab:f_K_vs_Khat} compara los valores de $f^*$ obtenidos con ambos sistemas, junto con la norma KKT de cada uno.
 
 % TABLE 8 (merged: f* with highlighted digits + dimensions)
 \begin{table}[H]
@@ -325,19 +356,20 @@ La Tabla~\ref{tab:f_K_vs_Khat} compara los valores de $f^*$ obtenidos con ambos 
 \caption{$f^*$ después de 5~iteraciones adicionales con $K$ vs $\widehat{K}$.}
 \label{tab:f_K_vs_Khat}
 \scriptsize
-\begin{tabular}{l r r r r r r}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{l r r r r r r r}
 \toprule
-Problema & $\dim(K)$ & $\dim(\widehat{K})$ & $f^*$(pub.) & $f^*$ ($K$, +5 iters) & $f^*$ ($\widehat{K}$, +5 iters) & $\|\text{KKT}\|_\infty$ ($\widehat{K}$, +5) \\
+Problema & $\dim(K)$ & $\dim(\widehat{K})$ & $f^*$(pub.) & $f^*$ ($K$) & $f^*$ ($\widehat{K}$) & $\|\text{KKT}\|_\infty$ ($K$) & $\|\text{KKT}\|_\infty$ ($\widehat{K}$) \\
 \midrule
-TAME      &   5 &   3 & $0.0000000000$ & $0.0000000000$ & $0.0000000000$ & $0$ \\
-HS21      &   7 &   3 & $-99.9600000000$ & $-99.9600000000$ & $-99.9600000000$ & $1.1\times10^{-17}$ \\
-HS35      &   7 &   4 & $0.1111111111$ & $0.1111111111$ & $0.1111111111$ & $8.9\times10^{-16}$ \\
-HS53      &  18 &   8 & $4.0930232558$ & $4.0930232558$ & $4.0930232558$ & $4.4\times10^{-16}$ \\
-DUAL1$^*$ & 256 & 116 & $0.0350129660$ & $0.035012965\hldig{7}$ & $0.035012965\hldig{7}$ & $3.4\times10^{-14}$ \\
-DUAL2$^*$ & 289 & 104 & $0.0337336760$ & $0.033733676\hldig{1}$ & $0.033733676\hldig{1}$ & $8.9\times10^{-16}$ \\
-DUAL3$^*$ & 334 & 132 & $0.1357558400$ & $0.1357558\hldig{369}$ & $0.1357558\hldig{369}$ & $6.7\times10^{-11}$ \\
-DUAL4$^*$ & 226 &  90 & $0.7460908400$ & $0.7460908\hldig{418}$ & $0.7460908\hldig{418}$ & $1.1\times10^{-14}$ \\
-QPCBLEND  & 240 & 190 & $-0.0078425409$ & $-0.00784254\hldig{29}$ & $-0.00784254\hldig{29}$ & $1.4\times10^{-10}$ \\
+TAME      &   5 &   3 & $0.0000000000$ & $0.0000000000$ & $0.0000000000$ & $2.0\times10^{-19}$ & $0$ \\
+HS21      &   7 &   3 & $-99.9600000000$ & $-99.9600000000$ & $-99.9600000000$ & $1.1\times10^{-17}$ & $1.1\times10^{-17}$ \\
+HS35      &   7 &   4 & $0.1111111111$ & $0.1111111111$ & $0.1111111111$ & $1.3\times10^{-17}$ & $8.9\times10^{-16}$ \\
+HS53      &  18 &   8 & $4.0930232558$ & $4.0930232558$ & $4.0930232558$ & $4.4\times10^{-16}$ & $4.4\times10^{-16}$ \\
+DUAL1$^*$ & 256 & 116 & $0.0350129660$ & $0.035012965\hldig{7}$ & $0.035012965\hldig{7}$ & $3.6\times10^{-14}$ & $3.4\times10^{-14}$ \\
+DUAL2$^*$ & 289 & 104 & $0.0337336760$ & $0.033733676\hldig{1}$ & $0.033733676\hldig{1}$ & $1.2\times10^{-15}$ & $8.9\times10^{-16}$ \\
+DUAL3$^*$ & 334 & 132 & $0.1357558400$ & $0.1357558\hldig{369}$ & $0.1357558\hldig{369}$ & $7.0\times10^{-11}$ & $6.7\times10^{-11}$ \\
+DUAL4$^*$ & 226 &  90 & $0.7460908400$ & $0.7460908\hldig{418}$ & $0.7460908\hldig{418}$ & $1.1\times10^{-14}$ & $1.1\times10^{-14}$ \\
+QPCBLEND  & 240 & 190 & $-0.0078425409$ & $-0.00784254\hldig{29}$ & $-0.00784254\hldig{29}$ & $1.5\times10^{-10}$ & $1.4\times10^{-10}$ \\
 \bottomrule
 \end{tabular}
 
@@ -347,173 +379,235 @@ $^*$\,Valor publicado no analítico (obtenido con BPMPD).\\
 Los dígitos resaltados indican dónde $f^*$ diverge del valor publicado.
 \end{table}
 
-Ambos sistemas alcanzan esencialmente la misma precisión. \nuevo{En todos los problemas los valores coinciden en todos los dígitos que reportamos (la mayor diferencia entre ambos es de $4\times10^{-12}$, en QPCBLEND), y la norma KKT con~$\widehat{K}$ es prácticamente la misma que con~$K$. Esto último no dice mucho sobre la precisión: al converger, los residuos $r_x$, $r_\lambda$ y $r_\mu$ ya están en precisión de máquina, así que la norma KKT mide sobre todo la complementariedad $\mu_i z_i$, que baja en cada iteración adicional. Lo que sí confirma es que al hacer $\mu_i = 0$ en las restricciones eliminadas no se pierde nada.}
-Lo que empezamos a ver es que la ventaja de $\widehat{K}$ no es llegar a un mejor óptimo, sino llegar al mismo resolviendo un sistema más pequeño sin sacrificar precisión.
-También hay que tomar en cuenta que las dimensiones de estos problemas son pequeñas: $\widehat{K}$ tiene a lo mucho dimensión ${\sim}190$. En problemas más grandes, donde el condicionamiento de~$K$ supera la precisión de máquina, la reducción de $\widehat{K}$ se vuelve no solo eficiente sino necesaria. Por eso, en el \hyperref[sec:netlib]{Paso~5} aplicamos el método a problemas \nuevo{más grandes: los mismos con los que trabajó Montiel.}
+Ambos sistemas alcanzan la misma precisión: los valores de $f^*$ coinciden en todos los dígitos que reportamos (la mayor diferencia es de $4\times10^{-12}$, en QPCBLEND) y la norma KKT es prácticamente la misma. La ventaja es llegar al mismo óptimo con un sistema más pequeño y mejor condicionado.
 
 \subsection*{Paso 5: Problemas de NETLIB}
 \label{sec:netlib}
 
 Para ver qué pasa en problemas más grandes y peor condicionados, usamos los problemas de la colección NETLIB\footnote{Gay, D.\,M.\ (1985). ``Electronic mail distribution of linear programming test problems''. \textit{Mathematical Programming Society COAL Newsletter}, 13, 10--12. Archivos \texttt{.mat}: SuiteSparse Matrix Collection, grupo LPnetlib (Davis, T.\,A.\ y Hu, Y.\ (2011). ``The University of Florida Sparse Matrix Collection''. \textit{ACM Trans.\ Math.\ Softw.}, 38(1), 1:1--1:25), \href{https://sparse.tamu.edu/LPnetlib}{sparse.tamu.edu/LPnetlib}.}\falta{usar \texttt{\textbackslash cite\{Gay1985netlib\}} y \texttt{\textbackslash cite\{DavisHu2011\}}; ambas ya están en bibliography.bib} que utilizó Montiel\footnote{Montiel González, J.\ (2023). \textit{Precondicionadores en el método de puntos interiores para programación cuadrática convexa}. Tesis de Licenciatura en Matemáticas Aplicadas, ITAM.} en su tesis sobre precondicionadores para el IPM. Esto nos permite, además, comparar nuestro enfoque con el suyo.
 
-Los problemas de NETLIB son de programación lineal. Siguiendo a Montiel, cada uno se convierte en un problema cuadrático de la forma
+Los problemas de NETLIB originalmente son de programación lineal. Siguiendo a Montiel, cada uno se convierte en un problema cuadrático de la forma
 \[
 \min_x\ x^Tx + c^Tx \quad \text{s.a.} \quad Ax = b, \quad x \ge 0,
 \]
-es decir, $Q = 2I$, $F = I$ y $d = 0$. Así, cada variable tiene su propia restricción de desigualdad y $p = n$. A diferencia de Montiel, quien toma $b = 0$, nosotros usamos el~$b$ original de cada problema: con $b = 0$, en muchos de ellos la solución es $x^* = 0$, todas las restricciones son activas y no hay ninguna $\mu_i \to 0$ que eliminar (véase el \hyperref[app:netlib_b0]{apéndice}). Usamos la misma tolerancia ($\|\text{KKT}\|_\infty < 10^{-6}$), el mismo máximo de 100~iteraciones y el mismo punto inicial (todas las variables en uno y $\lambda = 0$). De los 20~problemas de Montiel tenemos~18: no contamos con NESM ni SCSD8.
+es decir, $Q = 2I$, $F = I$ y $d = 0$.
+Así, cada variable tiene su propia restricción de desigualdad y $p = n$.
+A diferencia de Montiel, quien toma $b = 0$, nosotros usamos el~$b$ original de cada problema. Con $b = 0$, en muchos de ellos la solución es $x^* = 0$, todas las restricciones son activas y no hay ninguna $\mu_i \to 0$ que eliminar (véase el \hyperref[app:netlib_b0]{apéndice}). Usamos la misma tolerancia ($\|\text{KKT}\|_\infty < 10^{-6}$), el mismo máximo de 100~iteraciones y el mismo punto inicial (todas las variables en uno y $\lambda = 0$).
+De los 20~problemas de Montiel tenemos~18, ya que no contamos con NESM ni SCSD8.
 
 % TABLE NETLIB 1
 \begin{table}[H]
 \centering
-\caption{Problemas de NETLIB: detección, condicionamiento y norma KKT con $K$ vs $\widehat{K}$.}
+\caption{Problemas de NETLIB: restricciones eliminadas con la heurística.}
 \label{tab:netlib}
-\scriptsize
-\setlength{\tabcolsep}{3pt}
-\begin{tabular}{l r r r r r r r r r r}
+\small
+\begin{tabular}{l r r r r r}
 \toprule
- & & & & & & \multicolumn{2}{c}{Iteración 1} & \multicolumn{2}{c}{Iteración 5} & \\
-\cmidrule(lr){7-8} \cmidrule(lr){9-10}
-Problema & $n$ & $m$ & Elim./$\mu\to0$ & \% & Err. & $\kappa(K)$ & $\kappa(\widehat{K})$ & $\kappa(K)$ & $\kappa(\widehat{K})$ & $\|\text{KKT}\|_\infty$ ($\widehat{K}$, +5) \\
+Problema & $n$ & $m$ & Elim./$\mu\to0$ & \% & Err. \\
 \midrule
-AFIRO & 51 & 27 & 39/42 & 93\% & 0 & $3.6\times10^{10}$ & $1.5\times10^{4}$ & $3.6\times10^{18}$ & $1.5\times10^{4}$ & $5.7\times10^{-14}$ \\
-BLEND$^*$ & 114 & 74 & 82/86 & 95\% & 0 & $1.4\times10^{17}$ & $1.4\times10^{17}$ & $9.6\times10^{23}$ & $2.1\times10^{22}$ & $2.1\times10^{-13}$ \\
-FIT1D$^*$ & 1049 & 24 & 303/309 & 98\% & 0 & $4.4\times10^{17}$ & $1.2\times10^{11}$ & $5.8\times10^{20}$ & $1.3\times10^{12}$ & $1.2\times10^{-10}$ \\
-FIT1P$^*$ & 1677 & 627 & 833/843 & 99\% & 0 & $3.6\times10^{14}$ & $1.1\times10^{12}$ & $3.3\times10^{22}$ & $1.1\times10^{20}$ & $2.6\times10^{-10}$ \\
-GROW7 & 301 & 140 & 205/216 & 95\% & 0 & $1.2\times10^{9}$ & $1.2\times10^{9}$ & $9.8\times10^{14}$ & $3.7\times10^{14}$ & $7.5\times10^{-10}$ \\
-GROW15 & 645 & 300 & 476/500 & 95\% & 0 & $5.8\times10^{8}$ & $5.8\times10^{8}$ & $4.8\times10^{13}$ & $3.5\times10^{13}$ & $1.1\times10^{-13}$ \\
-GROW22 & 946 & 440 & 689/752 & 92\% & 0 & $2.0\times10^{7}$ & $1.9\times10^{7}$ & $1.1\times10^{12}$ & $9.6\times10^{11}$ & $8.3\times10^{-10}$ \\
-KB2 & 68 & 43 & 18/43 & 42\% & 0 & $5.3\times10^{10}$ & $5.3\times10^{10}$ & $6.1\times10^{15}$ & $6.9\times10^{15}$ & $4.0\times10^{-12}$ \\
-RECIPE$^*$ & 204 & 91 & 89/141 & 63\% & 0 & $2.0\times10^{13}$ & $3.6\times10^{10}$ & $5.2\times10^{15}$ & $8.9\times10^{12}$ & $3.8\times10^{-10}$ \\
-SCAGR7$^*$ & 185 & 129 & 0/172 & 0\% & 0 & $5.6\times10^{14}$ & --- & $5.6\times10^{22}$ & --- & $5.1\times10^{-12}$ \\
-SCSD1 & 760 & 77 & 50/55 & 91\% & 0 & $8.9\times10^{11}$ & $5.3\times10^{11}$ & $5.0\times10^{16}$ & $4.6\times10^{16}$ & $5.8\times10^{-10}$ \\
-SCSD6$^*$ & 1350 & 147 & 157/160 & 98\% & 0 & $2.2\times10^{13}$ & $2.2\times10^{13}$ & $1.3\times10^{17}$ & $1.1\times10^{17}$ & $3.1\times10^{-10}$ \\
-SCTAP1$^*$ & 660 & 300 & 401/419 & 96\% & 0 & $2.8\times10^{19}$ & $3.3\times10^{19}$ & $2.5\times10^{23}$ & $5.0\times10^{22}$ & $1.5\times10^{-10}$ \\
-SCTAP2$^*$ & 2500 & 1090 & 1570/1584 & 99\% & 0 & $7.9\times10^{15}$ & $7.9\times10^{15}$ & $6.8\times10^{29}$ & $2.5\times10^{27}$ & $6.0\times10^{-13}$ \\
-SCTAP3$^*$ & 3340 & 1480 & 2177/2195 & 99\% & 0 & $1.8\times10^{16}$ & $1.8\times10^{16}$ & $6.4\times10^{21}$ & $3.2\times10^{24}$ & $2.1\times10^{-11}$ \\
-SHARE2B$^*$ & 162 & 96 & 106/108 & 98\% & 0 & $2.0\times10^{14}$ & $4.7\times10^{10}$ & $3.8\times10^{21}$ & $4.7\times10^{18}$ & $5.2\times10^{-12}$ \\
-STAIR$^*$ & 614 & 356 & 402/421 & 95\% & 0 & $2.4\times10^{18}$ & $2.4\times10^{18}$ & $4.5\times10^{28}$ & $1.1\times10^{27}$ & $9.1\times10^{-13}$ \\
-STOCFOR1$^*$ & 165 & 117 & 110/110 & 100\% & 0 & $3.9\times10^{13}$ & $3.9\times10^{13}$ & $3.7\times10^{21}$ & $3.4\times10^{21}$ & $9.1\times10^{-13}$ \\
-KLEEMINTY\_M3 & 6 & 3 & 0/5 & 0\% & 0 & $4.9\times10^{7}$ & --- & $4.6\times10^{15}$ & --- & $6.7\times10^{-16}$ \\
-KLEEMINTY\_M5 & 10 & 5 & 8/8 & 100\% & 0 & $4.4\times10^{9}$ & $7.7\times10^{1}$ & $4.1\times10^{17}$ & $7.7\times10^{1}$ & $8.9\times10^{-16}$ \\
+AFIRO & 51 & 27 & 39/42 & 93\% & 0 \\
+BLEND & 114 & 74 & 82/86 & 95\% & 0 \\
+FIT1D & 1049 & 24 & 303/309 & 98\% & 0 \\
+FIT1P & 1677 & 627 & 833/843 & 99\% & 0 \\
+GROW7 & 301 & 140 & 205/216 & 95\% & 0 \\
+GROW15 & 645 & 300 & 476/500 & 95\% & 0 \\
+GROW22 & 946 & 440 & 689/752 & 92\% & 0 \\
+KB2 & 68 & 43 & 18/43 & 42\% & 0 \\
+RECIPE & 204 & 91 & 89/141 & 63\% & 0 \\
+SCAGR7 & 185 & 129 & 0/172 & 0\% & 0 \\
+SCSD1 & 760 & 77 & 50/55 & 91\% & 0 \\
+SCSD6 & 1350 & 147 & 157/160 & 98\% & 0 \\
+SCTAP1 & 660 & 300 & 401/419 & 96\% & 0 \\
+SCTAP2 & 2500 & 1090 & 1570/1584 & 99\% & 0 \\
+SCTAP3 & 3340 & 1480 & 2177/2195 & 99\% & 0 \\
+SHARE2B & 162 & 96 & 106/108 & 98\% & 0 \\
+STAIR & 614 & 356 & 402/421 & 95\% & 0 \\
+STOCFOR1 & 165 & 117 & 110/110 & 100\% & 0 \\
 \bottomrule
 \end{tabular}
 
 \vspace{0.3em}
 \footnotesize
-$\mu\to0$: restricciones inactivas según Clarabel. $p = n$ en todos los problemas. ---: no se eliminó ninguna restricción, así que $\widehat{K} = K$.\\
-Iteración $j$: matriz que se resuelve en la $j$-ésima iteración adicional; la iteración~1 corresponde al punto de convergencia.\\
-$^*$\,$\sigma_{\min}(K) < \varepsilon\,\sigma_{\max}(K)$: el número de condición puede no ser confiable.
+$\mu\to0$: restricciones inactivas según Clarabel. $p = n$ en todos los problemas.
 \end{table}
 
-\nuevo{En los 20~problemas la heurística no marca ninguna restricción que no debería, y en casi todos identifica más del 90\% de las restricciones con $\mu_i \to 0$. Las excepciones son SCAGR7 y KLEEMINTY\_M3, donde no se elimina ninguna. [PENDIENTE: revisar por qué en SCAGR7 no se elimina ninguna de las 172.]}
+Los criterios los ajustamos solo con los 9~problemas anteriores, así que NETLIB sirve como prueba independiente. En los 18~problemas la heurística no marca ninguna restricción que no debería (utilizando Clarabel de referencia otra vez), y en 15 identifica más del 90\% de las restricciones con $\mu_i \to 0$.
+Sin embargo, observamos tres excepciones:
+\begin{itemize}
+    \item SCAGR7 (0\%). La condición $\mu_i z_i \le 10^{-5}$ (criterio~3) se cumple hasta la última iteración. Al final, $\mu_i z_i$ disminuye unas 100~veces por iteración, así que el IPM converge en cuanto se cumple. En esa iteración, 157 de las 172 restricciones cumplen los cinco criterios, pero la ventana pide al menos 2 de las últimas 4, así que no se marca ninguna.
+    \item KB2 (42\%). Cuando converge el IPM, 32 restricciones todavía tienen $z_i \approx \mu_i$, y solo se separan en las iteraciones adicionales.
+    \item RECIPE (63\%). En las 52 restricciones que no marcamos, $\mu_i$ y $z_i$ tienden a cero aproximadamente al mismo ritmo, así que no parece haber complementariedad estricta, y los criterios 1 y 5 las rechazan. Las 89 restricciones restantes sí tienen $\mu_i \to 0$ con $z_i$ lejos de cero, y la heurística las marca todas.
+\end{itemize}
 
-\nuevo{En el condicionamiento se repite lo que vimos en el Paso~3. En AFIRO, FIT1D, FIT1P, RECIPE y SHARE2B, $\kappa$ baja entre 2 y 6~órdenes de magnitud. En cambio, en la mayoría de los demás (BLEND, KB2, STOCFOR1, los GROW, los SCTAP, SCSD6 y STAIR) $\kappa(\widehat{K}) \approx \kappa(K)$, aunque se elimine más del 90\% de las restricciones. En los que revisamos a detalle encontramos dos causas. En algunos, como GROW7, quedan en~$\widehat{K}$ unas pocas restricciones con $\mu_i \to 0$ que la heurística no detectó; sus filas son casi cero, justo lo que $\widehat{K}$ busca quitar. En otros, como BLEND, KB2, STOCFOR1 y RECIPE, el problema es degenerado: en la solución hay más restricciones activas e igualdades de las que admite el número de variables, así que las filas de $[A;\, F_{\text{activas}}]$ son linealmente dependientes y $\widehat{K}$ queda casi singular, sin importar qué filas quitemos.}
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{figures/fig_kappa_netlib.pdf}
+\caption{Problemas de NETLIB: $\kappa_1(K)$ y $\kappa_1(\widehat{K})$ al converger y tras 5~iteraciones adicionales. La flecha va de $K$ a $\widehat{K}$.}
+\label{fig:kappa_netlib}
+\end{figure}
+En el caso del condicionamiento vemos el mismo patrón que en el Paso~3 (Figura~\ref{fig:kappa_netlib}).
+En los problemas AFIRO, FIT1D, FIT1P, RECIPE y SHARE2B, $\kappa_1$ disminuye entre 2 y 7~órdenes de magnitud.
+En cambio, en la mayoría de los demás vemos que $\kappa_1(\widehat{K}) \approx \kappa_1(K)$, aunque en casi todos se elimine más del 90\% de las restricciones. Encontramos dos causas:
+\begin{itemize}
+    \item \textbf{Las restricciones sin eliminar} (los problemas GROW). Quedan en~$\widehat{K}$ algunas restricciones con $\mu_i \to 0$ que la heurística no elimina. Sus filas son casi cero, así que cada una aporta a~$\widehat{K}$ un valor propio pequeño, como vimos en el Paso~3. Si también las quitamos, $\kappa_1$ disminuiría más.
+    \item \textbf{Restricciones linealmente dependientes} (BLEND, KB2, STOCFOR1, SCSD1, SCSD6, STAIR y SCTAP1). Como en QPCBLEND, las filas de $[A;\, F_{\text{activas}}]$ son linealmente dependientes y $\widehat{K}$ queda casi singular, sin importar qué filas quitemos.
+\end{itemize}
+SCTAP2 y SCTAP3 no los revisamos por tener dimensiones grandes.
 
-\paragraph{Sistema lineal de Montiel?}
-\nuevo{Como mencionamos en la Sección~\ref{sec:reduccion}, en algunas aplicaciones el sistema se reduce aún más, y este es el caso de Montiel: a partir del sistema de Newton completo, elimina tanto $\delta_z$ como $\delta_\mu$ y obtiene un sistema de dimensión $n+m$ que, en nuestra notación, es
-\[
-\begin{pmatrix} \hat{G} & -A^T \\ -A & 0 \end{pmatrix}
-\begin{pmatrix} \delta_x \\ \delta_\lambda \end{pmatrix}
-=
-\begin{pmatrix} -r_x + F^T\!\left(\tau D_z^{-1} e - \mu + D_z^{-1} D_\mu\, r_\mu\right) \\ -r_\lambda \end{pmatrix},
-\qquad \hat{G} = Q + F^T D_z^{-1} D_\mu F,
-\]
-donde $r_x$, $r_\lambda$ y $r_\mu$ son los residuos de las primeras tres condiciones KKT. Una vez resuelto, recupera $\delta_z = F\delta_x - r_\mu$ y $\delta_\mu = \tau D_z^{-1} e - \mu - D_z^{-1} D_\mu\, \delta_z$ por sustitución. Este sistema lo resuelve con MINRES y tres precondicionadores. Nosotros, en cambio, nos quedamos en dimensión $n+m+p$ porque la eliminación de filas y columnas de~$K$ aprovecha precisamente esa estructura: cada restricción conserva su propia fila y columna asociada a~$\mu_i$. Así, en lugar de reducir el sistema por eliminación algebraica, quitamos filas y columnas de~$K$ y resolvemos el sistema con un método directo. Por eso no todo se puede comparar: Montiel no reporta números de condición ni el error en~$f^*$, y además usamos lenguajes y métodos de solución distintos. Lo que sí podemos comparar, problema por problema, es si el método alcanza la tolerancia, en cuántas iteraciones y con qué norma KKT final (Tabla~\ref{tab:netlib_montiel}).}
+Tras las 5~iteraciones adicionales con~$\widehat{K}$, la norma KKT es menor que $10^{-9}$ en todos los problemas, y $f^*$ coincide con el que obtenemos con~$K$ (diferencia relativa menor que $10^{-11}$). La Tabla~\ref{tab:netlib_completa} del \hyperref[app:netlib_completa]{apéndice} reporta la detección, $\kappa_1$ y la norma KKT de cada problema.
+Como vimos en el \hyperref[par:montiel]{capítulo anterior}, Montiel reduce el sistema hasta la dimensión $n+m$, con matriz~$\widehat{G}$, y lo resuelve con MINRES y tres precondicionadores, mientras que nosotros nos quedamos en $n+m+p$ y usamos un método directo.
+Por lo mismo, no podemos comparar ambas estrategias de manera directa. Montiel no reporta números de condición ni el error en~$f^*$, y usamos lenguajes de programación y métodos de solución distintos.
+Además, como él toma $b = 0$, nuestros problemas coinciden con los suyos solo en los seis donde el vector~$b$ original ya es cero (Tabla~\ref{tab:netlib_montiel}).
 
 % TABLE NETLIB 2
 \begin{table}[H]
 \centering
-\caption{Comparación con Montiel: iteraciones del IPM y norma KKT final.}
+\caption{\textcolor{red}{Iteraciones del IPM en los problemas donde el~$b$ original es cero.}}
 \label{tab:netlib_montiel}
-\scriptsize
-\begin{tabular}{l r r r r}
+\small
+\begin{tabular}{l r r}
 \toprule
-         & \multicolumn{2}{c}{Montiel} & \multicolumn{2}{c}{Este trabajo ($K$)} \\
-\cmidrule(lr){2-3} \cmidrule(lr){4-5}
-Problema & Iter. & $\|\text{KKT}\|_\infty$ (precond.\ A) & Iter. & $\|\text{KKT}\|_\infty$ (conv.) \\
+Problema & Montiel & Este trabajo ($K$) \\
 \midrule
-AFIRO    & 29 & ? & 18 & $2.1\times10^{-8}$ \\
-BLEND    & 29 & $5.0\times10^{-4}$ & 26 & $7.5\times10^{-7}$ \\
-FIT1D    & 39 & ? & 32 & $7.0\times10^{-7}$ \\
-FIT1P    & 70 & ? & 80 & $3.6\times10^{-7}$ \\
-GROW7    & 23 & ? & 17 & $7.2\times10^{-7}$ \\
-GROW15   & 24 & ? & 20 & $5.9\times10^{-7}$ \\
-GROW22   & 24 & ? & 21 & $6.5\times10^{-7}$ \\
-KB2      & 26 & ? & 19 & $7.4\times10^{-7}$ \\
-RECIPE   & 26 & ? & 15 & $3.8\times10^{-7}$ \\
-SCAGR7   & 54 & $1.9\times10^{-1}$ & 49 & $8.8\times10^{-7}$ \\
-SCSD1    & 22 & ? & 17 & $5.8\times10^{-7}$ \\
-SCSD6    & 22 & ? & 17 & $3.1\times10^{-7}$ \\
-SCTAP1   & 51 & $4.4\times10^{-3}$ & 56 & $2.4\times10^{-7}$ \\
-SCTAP2   & 45 & $6.1\times10^{-3}$ & 52 & $2.2\times10^{-7}$ \\
-SCTAP3   & 42 & ? & 50 & $5.1\times10^{-7}$ \\
-SHARE2B  & 45 & ? & 44 & $2.1\times10^{-7}$ \\
-STAIR    & 67 & $3.9\times10^{-3}$ & 76 & $1.8\times10^{-7}$ \\
-STOCFOR1 & 45 & ? & 38 & $1.6\times10^{-8}$ \\
+FIT1D    & 39 & 32 \\
+GROW7    & 23 & 17 \\
+GROW15   & 24 & 20 \\
+GROW22   & 24 & 21 \\
+KB2      & 26 & 19 \\
+RECIPE   & 26 & 15 \\
 \bottomrule
 \end{tabular}
 
 \vspace{0.3em}
 \footnotesize
-Iteraciones de Montiel con el sistema completo (sus Tablas~4.2 y~4.3); norma KKT final con su precondicionador~A (Tabla~4.7). Montiel usa $b = 0$ y nosotros el~$b$ original, así que la comparación es indicativa.
+\textcolor{red}{Montiel: iteraciones con el sistema completo (sus Tablas~4.2 y~4.3).}
 \end{table}
 
-\nuevo{Con sus precondicionadores, varios problemas no alcanzan $10^{-6}$: por ejemplo, SCAGR7 se detiene en $0{.}19$ y SCTAP1, SCTAP2, STAIR y BLEND en el orden de $10^{-3}$ a $10^{-4}$. Con nuestro IPM, en cambio, todos los problemas alcanzan la tolerancia de $10^{-6}$ con~$K$, incluidos esos cinco, y en un número de iteraciones parecido al suyo. Esto se debe sobre todo a que resolvemos el sistema con un método directo y no con MINRES; además usamos el~$b$ original, así que no es una comparación uno a uno.}
+\textcolor{red}{En los seis, nuestro IPM con~$K$ usa entre 3 y 11~iteraciones menos. La diferencia no se debe a la heurística, que actúa después de converger, sino a diferencias de implementación.}
 
-\nuevo{Los dos enfoques atacan fuentes distintas del mal condicionamiento. En~$\hat{G}$, el problema viene de las restricciones activas: cuando $z_i \to 0$, el cociente $\mu_i/z_i$ crece sin cota. En~$K$, viene de las inactivas: cuando $\mu_i \to 0$, la fila y la columna correspondientes se anulan. Por eso los vemos como complementarios y no como alternativas: se podría primero quitar las restricciones con $\mu_i \to 0$ y después precondicionar el sistema reducido.}
 
-\subsection*{Un análisis más a fondo de los criterios}
 
-\nuevo{Hasta ahora vimos qué logra el método: identifica las restricciones con $\mu_i \to 0$ sin errores, mejora el condicionamiento y llega al mismo óptimo con un sistema más pequeño. Todo esto depende de que la detección sea correcta, así que ahora vemos de dónde sale ese resultado y qué papel juega cada criterio.}
+\subsection*{Paso 6: Un análisis más a fondo de los criterios}\label{sec:analisis_criterios}
 
-\nuevo{Los cinco criterios son el resultado de varias revisiones. Al ajustar los umbrales o quitar algún criterio, en ocasiones el método marca restricciones como $\mu_i \to 0$ cuando no lo son [EJEMPLO: qué umbral o criterio daba errores]. Cada criterio que agregamos hace al método más conservador: identifica menos restricciones, pero sin errores.}
+Hasta ahora vimos que el método identifica las restricciones con $\mu_i \to 0$ sin errores, mejora el condicionamiento en muchos de los problemas y llega al mismo óptimo con un sistema más pequeño. Todo esto depende de que la detección sea correcta, así que ahora vemos de dónde sale ese resultado y qué papel juega cada criterio.
 
-\nuevo{¿Son necesarios entonces los cinco? Los criterios 3, 4 y 5 (complementariedad, $\mu_i$ disminuye, $\mu_i < z_i$) son condiciones directas, así que los dejamos fijos y variamos los dos que requirieron justificación: el comportamiento de~$z_i$ (criterio~1) y el indicador de Tapia (criterio~2). La Tabla~\ref{tab:tapia_ablation} muestra el porcentaje de restricciones con $\mu_i \to 0$ identificadas usando solo uno de ellos o ambos.}
+Los cinco criterios son el resultado de varias revisiones. Al ajustar los umbrales o quitar algún criterio, en ocasiones el método marca restricciones como $\mu_i \to 0$ cuando no lo son. Por ejemplo, si quitamos los criterios 1 ($z_i$ deja de disminuir) y 5 ($\mu_i < z_i$) de la Tabla~\ref{tab:detection_criteria}, el método marca como $\mu_i \to 0$ a 4~restricciones de QPCBLEND que en realidad son activas. En una de ellas, $\mu_i \approx 0.43$ y $z_i \approx 10^{-7}$, así que $\mu_i z_i$ es pequeño solo porque $z_i$ lo es. Cada criterio que agregamos hace al método más conservador: identifica menos restricciones, pero tenemos más seguridad sobre las que sí eliminamos.
 
-% TABLE 5
+Ninguno de los cinco criterios basta por sí solo, juntos se equilibran entre sí. Observemos qué pasa si quitamos uno o varios a la vez. La Tabla~\ref{tab:ablacion} muestra cuántas restricciones con $\mu_i \to 0$ se identifican y cuántas se marcan por error. Quitar cualquiera de los cinco por separado no tiende a causar errores, porque los criterios restantes se equilibran. Los errores aparecen al quitar juntos los criterios 1 y 5, que son los que indican cuál de los dos factores, $\mu_i$ o $z_i$, tiende a cero.
+
 \begin{table}[H]
 \centering
-\caption{Restricciones identificadas usando el criterio~1, el criterio~2, o ambos (criterios 3, 4 y 5 siempre activos).}
-\label{tab:tapia_ablation}
-\begin{tabular}{l r r r r r r}
+\caption{Restricciones con $\mu_i \to 0$ identificadas y restricciones activas marcadas por error al quitar criterios.}
+\label{tab:ablacion}
+\small
+\begin{tabular}{l r r r r}
 \toprule
-         & \multicolumn{2}{c}{Solo $z_i$ (1)} & \multicolumn{2}{c}{Solo Tapia (2)} & \multicolumn{2}{c}{Ambos} \\
-\cmidrule(lr){2-3} \cmidrule(lr){4-5} \cmidrule(lr){6-7}
-Problema & \% & Err. & \% & Err. & \% & Err. \\
+ & \multicolumn{2}{c}{HS/MM} & \multicolumn{2}{c}{NETLIB} \\
+\cmidrule(lr){2-3} \cmidrule(lr){4-5}
+Criterios quitados & \% & Err. & \% & Err. \\
 \midrule
-TAME     & 100\% & 0 & 100\% & 0 & 100\% & 0 \\
-HS21     & 100\% & 0 & 100\% & 0 & 100\% & 0 \\
-HS35     & 100\% & 0 & 100\% & 0 & 100\% & 0 \\
-HS53     & 100\% & 0 & 100\% & 0 & 100\% & 0 \\
-DUAL1    &  95\% & 0 &  99\% & 0 &  95\% & 0 \\
-DUAL2    &  98\% & 0 &  99\% & 0 &  98\% & 0 \\
-DUAL3    &  99\% & 0 & 100\% & 0 &  99\% & 0 \\
-DUAL4    & 100\% & 0 & 100\% & 0 & 100\% & 0 \\
-QPCBLEND &  75\% & 0 &  78\% & 0 &  75\% & 0 \\
+Ninguno & 96.1 & 0 & 90.5 & 0 \\[2pt]
+(1) $\frac{\Delta z_i}{z_i} > -0.03$ & 97.5 & 0 & 92.4 & 0 \\[2pt]
+(2) $\frac{\mu_i^{(k)}}{\mu_i^{(k-1)}} < 0.8$ & 96.1 & 0 & 90.5 & 0 \\[2pt]
+(3) $\mu_i z_i \le 10^{-5}$ & 96.1 & 0 & 94.1 & 0 \\[2pt]
+(4) $\mu_i^{(k)} < \mu_i^{(k-1)}$ & 96.1 & 0 & 90.5 & 0 \\[2pt]
+(5) $\mu_i < z_i$ & 97.8 & 0 & 91.1 & 0 \\[2pt]
+\midrule
+(1) y (5) & 100.0 & 10 & 94.7 & 93 \\[2pt]
+(2) y (5) & 97.8 & 1 & 91.1 & 0 \\[2pt]
+(1), (2) y (5) & 100.0 & 57 & 95.7 & 2421 \\[2pt]
 \bottomrule
 \end{tabular}
 
+\vspace{0.3em}
+\footnotesize
+Según Clarabel, hay 762 restricciones con $\mu_i \to 0$ en los problemas de prueba y 4377 en NETLIB (sin SCTAP2 ni SCTAP3).
 \end{table}
 
-\nuevo{En ningún caso se marca una restricción que no debería, por lo que la diferencia está solo en cuántas se identifican. Tapia por sí solo identifica un poco más (por ejemplo, DUAL1: 99\% contra 95\%), mientras que el criterio de~$z_i$ es más conservador. Usar ambos da exactamente el mismo resultado que usar solo el de~$z_i$: toda restricción que pasa el criterio~1 también pasa Tapia, así que en la práctica el criterio~1 es el que decide y Tapia no agrega nada.
-Aun así, lo mantenemos: no cuesta nada calcularlo y, en problemas distintos a estos, podría filtrar casos que el criterio~1 deje pasar.}
+Sin los criterios 1 y 5, el indicador de Tapia (criterio~2) por sí solo marca de más. Marca como $\mu_i \to 0$ a 10~restricciones activas en los problemas de prueba y a 93 en NETLIB. En cambio, con el criterio~1 en lugar del criterio~2 hay un solo error. La condición $\mu_i z_i \le 10^{-5}$ tampoco sirve para distinguirlas, porque $\mu_i z_i \to 0$ en todas las restricciones. Si quitamos los criterios 1, 2 y 5, hay 57~errores en los problemas de prueba y 2421 en NETLIB.
+
+La Tabla~\ref{tab:si_por_criterio} muestra qué tan seguido cada criterio coincide con Clarabel a lo largo de las iteraciones. Contamos solo las iteraciones en las que ya se cumple $\mu_i z_i \le 10^{-5}$ (criterio~3). Que un criterio coincida con Clarabel quiere decir que dan la misma respuesta. Si Clarabel nos indica que $\mu_i \to 0$, el criterio debería cumplirse. Si según Clarabel la restricción es activa, no debería cumplirse. Cada número es el porcentaje de iteraciones en las que coinciden.
+
+\begin{table}[H]
+\centering
+\caption{Porcentaje de iteraciones en las que cada criterio coincide con la clasificación de Clarabel, contando solo las iteraciones en las que $\mu_i z_i \le 10^{-5}$.}
+\label{tab:si_por_criterio}
+\small
+\begin{tabular}{l l r r r r r}
+\toprule
+ & & (1) & (2) & (4) & (5) & \\
+ & Restricciones & $\frac{\Delta z_i}{z_i} > -0.03$ & $\frac{\mu_i^{(k)}}{\mu_i^{(k-1)}} < 0.8$ & $\mu_i^{(k)} < \mu_i^{(k-1)}$ & $\mu_i < z_i$ & Los cinco \\
+\midrule
+HS/MM  & $\mu_i \to 0$ & 94.7 & 97.9 & 99.2 & 95.2 & 90.5 \\
+       & activas       & 96.5 & 89.2 & 40.8 & 100.0 & 100.0 \\
+\midrule
+NETLIB & $\mu_i \to 0$ & 94.3 & 98.6 & 99.6 & 96.1 & 93.4 \\
+       & activas       & 99.9 & 98.3 & 50.4 & 100.0 & 100.0 \\
+\bottomrule
+\end{tabular}
+
+\vspace{0.3em}
+\footnotesize
+El criterio~(3) no aparece porque se cumple en todas las iteraciones mostradas. NETLIB sin SCTAP2 ni SCTAP3.
+\end{table}
+
+\begin{itemize}
+    \item \textbf{Criterios 1 y 5.} Son los que distinguen las restricciones con $\mu_i \to 0$ de las activas. Coinciden con Clarabel en cerca del 95\% de las iteraciones de las restricciones con $\mu_i \to 0$ y en al menos el 96.5\% de las de las activas. En las activas, el criterio~5 coincide siempre. Esto es de esperarse, porque en una restricción activa $z_i \to 0$ mientras $\mu_i$ se mantiene positivo, que es justo como la clasifica Clarabel.
+    \item \textbf{Criterio 2 (Tapia).} Coincide casi siempre en las restricciones con $\mu_i \to 0$, pero menos en las activas. En los problemas de prueba, en el 10.8\% de las iteraciones se cumple el criterio aunque la restricción sea activa. Por eso, sin los criterios 1 y 5, marca de más.
+    \item \textbf{Criterio 4.} En cerca de la mitad de las iteraciones se cumple el criterio aunque la restricción sea activa (59.2\% en los problemas de prueba y 49.6\% en NETLIB). Por eso, por sí solo no distingue las restricciones con $\mu_i \to 0$ de las activas.
+\end{itemize}
+En cambio, ninguna restricción activa cumple los cinco criterios a la vez, en ninguna iteración. Aunque un criterio se cumpla por error, siempre hay otro que no se cumple y la descarta.
+Por último, veamos qué criterio detiene a una restricción cuando no se marca. La Tabla~\ref{tab:unico_criterio} cuenta, a lo largo de todas las iteraciones, cuántas veces falla un solo criterio. En esos casos, ese criterio es el único que impide marcar la restricción en esa iteración.
+
+\begin{table}[H]
+\centering
+\caption{Número de pares (restricción, iteración) en los que falla un solo criterio.}
+\label{tab:unico_criterio}
+\small
+\begin{tabular}{l l r r r r r}
+\toprule
+ & & \multicolumn{5}{c}{Único criterio que falla} \\
+\cmidrule(lr){3-7}
+ & & (1) & (2) & (3) & (4) & (5) \\
+ & Restricciones & $\frac{\Delta z_i}{z_i} > -0.03$ & $\frac{\mu_i^{(k)}}{\mu_i^{(k-1)}} < 0.8$ & $\mu_i z_i \le 10^{-5}$ & $\mu_i^{(k)} < \mu_i^{(k-1)}$ & $\mu_i < z_i$ \\
+\midrule
+HS/MM  & $\mu_i \to 0$ & 134 & 34 & 3350 & 0 & 105 \\
+       & activas       &   0 &  0 &    7 & 0 &   5 \\
+\midrule
+NETLIB & $\mu_i \to 0$ & 408 &  5 & 37442 & 0 & 108 \\
+       & activas       &   0 &  0 &   107 & 0 &   4 \\
+\bottomrule
+\end{tabular}
+
+\vspace{0.3em}
+\footnotesize
+Contamos todas las iteraciones del IPM. Clasificación de referencia de Clarabel. NETLIB no contiene SCTAP2 ni SCTAP3.
+\end{table}
+
+En las restricciones con $\mu_i \to 0$, casi siempre el único criterio que falla es el~3. Los otros cuatro ya se cumplen, y solo falta que $\mu_i z_i$ sea suficientemente pequeño. Por ejemplo, en los problemas de prueba hay 762 restricciones con $\mu_i \to 0$ y, en total, la heurística no marca 30. De esas 30, 17 cumplen los cinco criterios, pero solo en la última iteración, así que la ventana (2 de las últimas 4) no alcanza a confirmarlas.
+
+En las restricciones activas, en cambio, casi nunca falla un solo criterio, sino varios a la vez. Los criterios 1, 2 y 4 nunca detienen por sí solos a una restricción activa. Las excepciones son los criterios 3 y 5. El criterio~3 detiene por sí solo a una restricción activa 114~veces, en iteraciones en las que $\mu_i z_i$ todavía es grande. El criterio~5 lo hace 9~veces, y en esas iteraciones $\mu_i < z_i$ es lo único que evita un error. Por eso lo mantenemos, aunque en la Tabla~\ref{tab:ablacion} quitarlo no cause errores.
+
+Algo parecido ocurre con la ventana de 4 iteraciones que utilizamos. Si marcamos una restricción en cuanto cumple los cinco criterios en una sola iteración, en los 27~problemas tampoco hay errores y se identifican más restricciones, 17 más en los 9~problemas de prueba y 204 más en NETLIB. El caso más claro es SCAGR7, que pasa de 0 a 157 de 172. La norma KKT final no cambia. En estos problemas la ventana no fue necesaria, pero la mantenemos porque protege contra restricciones que cumplan los criterios por casualidad en una sola iteración.
 
 % =====================================================================
-\section*{\nuevo{Discusión}}\label{sec:discusion}
+\section*{Conclusiones}\label{sec:discusion}
 % =====================================================================
 
 {\color{blue}
-Como mencionamos al construir~$\widehat{K}$, hacemos la eliminación hasta el final, una vez que el IPM converge, principalmente por simplicidad. Además, probamos eliminar las restricciones durante el IPM, en cuanto se confirman, y no aporta un beneficio claro: no reduce el número de iteraciones, y el condicionamiento mejora en algunos problemas pero empeora en otros. Por último, si seguimos iterando con~$K$ después de converger, su número de condición crece muchísimo (en solo 4~iteraciones pasa de $10^{8}$--$10^{15}$ a $10^{16}$--$10^{21}$, Tabla~\ref{tab:conditioning}), mientras que con~$\widehat{K}$ se mantiene mucho más bajo. Además, vimos que después de unas 5~iteraciones adicionales $f^*$ ya no cambia, así que más iteraciones no mejoran la precisión; de nuevo por simplicidad, fijamos 5.
+Como mencionamos al construir~$\widehat{K}$, hacemos la eliminación hasta el final, una vez que el IPM converge, principalmente por simplicidad. Además, probamos eliminar las restricciones durante el IPM, en cuanto se confirman, y no aporta un beneficio claro: no reduce el número de iteraciones, y el condicionamiento mejora en algunos problemas pero empeora en otros. Por último, si seguimos iterando con~$K$ después de converger, su número de condición crece muchísimo (en 5~iteraciones pasa de $10^{8}$--$10^{15}$ a $10^{17}$--$10^{23}$, Tabla~\ref{tab:conditioning}), mientras que con~$\widehat{K}$ se mantiene mucho más bajo. Además, vimos que después de unas 5~iteraciones adicionales $f^*$ ya no cambia, así que más iteraciones no mejoran la precisión; de nuevo por simplicidad, fijamos 5.
 
 A continuación se resumen las contribuciones de este trabajo:
 
 \begin{enumerate}
-    \item \textbf{Heurística con 0~errores.} Se desarrolló un criterio de 5~condiciones simultáneas (complementariedad, decrecimiento de~$\mu_i$, estabilidad de~$z_i$, indicador de Tapia, $\mu_i < z_i$) que identifica correctamente cuáles $\mu_i \to 0$ durante las iteraciones del IPM (75--100\%) sin marcar ninguna restricción que no debería en los 9~problemas.
+    \item \textbf{Heurística con 0~errores.} Se desarrolló un criterio de 5~condiciones simultáneas (complementariedad, decrecimiento de~$\mu_i$, estabilidad de~$z_i$, indicador de Tapia, $\mu_i < z_i$) que identifica correctamente cuáles $\mu_i \to 0$ durante las iteraciones del IPM (75--100\%) sin marcar ninguna restricción que no debería en los 9~problemas. \textcolor{red}{Ser conservadores vale la pena: si eliminamos por error una restricción activa, el IPM prácticamente se detiene; $x$ y $f^*$ casi no cambian (error relativo menor que $10^{-6}$), pero la norma KKT sube de $10^{-10}$ o menos a $10^{-2}$--$10^{0}$, porque falta el término $\mu_i F_i^T$ en la condición de estacionariedad. Dejar sin marcar una restricción con $\mu_i \to 0$, en cambio, solo cuesta condicionamiento. Además, ese salto en la norma KKT delata el error, así que podría usarse para regresar a~$K$.}
 
-    \item \textbf{Mejora del condicionamiento de $K$.} Al eliminar las filas y columnas correspondientes a las $\mu_i$ detectadas, el número de condición $\kappa(\widehat{K})$ se reduce en varios órdenes de magnitud respecto a~$\kappa(K)$ (por ejemplo, de $6{.}4 \times 10^{15}$ a $1{.}3 \times 10^{10}$ en DUAL4). Esto se debe a que las entradas $-D_z D_\mu$ que degeneran el sistema son precisamente las que se eliminan.
+    \item \textbf{Mejora del condicionamiento de $K$.} Al eliminar las filas y columnas correspondientes a las $\mu_i$ detectadas, el número de condición $\kappa_1(\widehat{K})$ se reduce en varios órdenes de magnitud respecto a~$\kappa_1(K)$ (por ejemplo, de $6{.}4 \times 10^{15}$ a $1{.}3 \times 10^{10}$ en DUAL4). Esto se debe a que las entradas $-D_z D_\mu$ que degeneran el sistema son precisamente las que se eliminan.
 
-    \item \nuevo{\textbf{Qué aporta $\widehat{K}$ si la precisión es la misma.} En nuestros problemas, $K$ y $\widehat{K}$ llegan al mismo~$f^*$, porque un método directo estable soporta el mal condicionamiento de~$K$: viene de filas y columnas multiplicadas por $\mu_i \approx 0$. Aun así, $\widehat{K}$ aporta tres cosas. Primero, una garantía: con $\kappa(K) > 1/\varepsilon_{\text{máq}}$ ninguna cota de error asegura nada, y que el método funcione depende de la estructura del problema y del solver; con~$\widehat{K}$ el sistema vuelve a un rango donde las cotas tienen sentido. Segundo, otros métodos de solución sí lo resienten: un método iterativo como MINRES, el que usa Montiel, converge según el número de condición. Tercero, cada iteración resuelve un sistema más pequeño. La ventaja no es un mejor óptimo, sino llegar al mismo con un sistema más chico y numéricamente confiable.}
+    \item \nuevo{\textbf{Qué aporta $\widehat{K}$ si la precisión es la misma.} En nuestros problemas, $K$ y $\widehat{K}$ llegan al mismo~$f^*$, porque un método directo estable soporta el mal condicionamiento de~$K$: viene de filas y columnas multiplicadas por $\mu_i \approx 0$. Aun así, $\widehat{K}$ aporta dos cosas. Primero, una garantía: con $\kappa_1(K) > 1/\varepsilon_{\text{máq}}$ ninguna cota de error asegura nada, y que el método funcione depende de la estructura del problema y del solver; con~$\widehat{K}$ el sistema vuelve a un rango donde las cotas tienen sentido. Segundo, cada iteración resuelve un sistema más pequeño. La ventaja no es un mejor óptimo, sino llegar al mismo con un sistema más chico y numéricamente confiable.}
 
     \item \textbf{Robustez numérica a futuro.} En los problemas estudiados, $K$ aún es resoluble por \texttt{scipy.linalg.solve} a pesar de su mal condicionamiento. Sin embargo, en problemas más grandes o peor condicionados --- como los que motivaron el trabajo de precondicionamiento de Montiel --- el condicionamiento de~$K$ supera la precisión de máquina y el sistema lineal comienza a devolver direcciones de paso no confiables. En ese régimen, $\widehat{K}$ ofrece un camino para seguir iterando de forma estable.
 \end{enumerate}
+
+\textcolor{red}{Una limitación: la teoría supone que en la solución las filas de $A$ y las de las restricciones activas son linealmente independientes. En problemas degenerados, como QPCBLEND, esto no se cumple, y $\widehat{K}$ queda casi singular aunque eliminemos todas las restricciones con $\mu_i \to 0$.}
 }

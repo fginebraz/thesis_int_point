@@ -1,0 +1,37 @@
+flags mismatch (should be 0): 0
+missed: 30
+  1 dz/z>-0.03  : falla en la última iteración  7/30, en alguna de las últimas 4 18/30
+  2 Tapia<0.8   : falla en la última iteración  0/30, en alguna de las últimas 4  8/30
+  3 mu*z<=1e-5  : falla en la última iteración  0/30, en alguna de las últimas 4  0/30
+  4 mu baja     : falla en la última iteración  0/30, en alguna de las últimas 4  1/30
+  5 mu<z        : falla en la última iteración  6/30, en alguna de las últimas 4 28/30
+  mm_DUAL1.mat     i= 66 hits=1  falla(última)=-  dz/z=-0.014 tapia=0.04 muz=1.1e-09 mu/z=0.00
+  mm_DUAL1.mat     i=102 hits=0  falla(última)=1  dz/z=-0.106 tapia=0.13 muz=1.0e-08 mu/z=0.15
+  mm_DUAL1.mat     i=108 hits=0  falla(última)=1  dz/z=-0.039 tapia=0.07 muz=3.7e-09 mu/z=0.01
+  mm_DUAL1.mat     i=116 hits=0  falla(última)=1  dz/z=-0.070 tapia=0.10 muz=9.2e-09 mu/z=0.08
+  mm_DUAL1.mat     i=142 hits=0  falla(última)=1  dz/z=-0.076 tapia=0.10 muz=9.9e-09 mu/z=0.17
+  mm_DUAL1.mat     i=146 hits=1  falla(última)=-  dz/z=+0.008 tapia=0.02 muz=1.4e-09 mu/z=0.01
+  mm_DUAL1.mat     i=164 hits=1  falla(última)=-  dz/z=-0.028 tapia=0.06 muz=3.6e-09 mu/z=0.01
+  mm_DUAL2.mat     i=140 hits=1  falla(última)=-  dz/z=-0.005 tapia=0.02 muz=1.5e-09 mu/z=0.00
+  mm_DUAL2.mat     i=148 hits=1  falla(última)=-  dz/z=-0.007 tapia=0.02 muz=2.4e-09 mu/z=0.00
+  mm_DUAL2.mat     i=154 hits=0  falla(última)=1  dz/z=-0.158 tapia=0.17 muz=6.1e-08 mu/z=0.77
+  mm_DUAL3.mat     i=138 hits=1  falla(última)=-  dz/z=-0.016 tapia=0.06 muz=4.6e-09 mu/z=0.06
+  mm_DUAL3.mat     i=154 hits=1  falla(última)=-  dz/z=-0.008 tapia=0.05 muz=2.5e-09 mu/z=0.02
+  mm_DUAL3.mat     i=220 hits=1  falla(última)=-  dz/z=-0.013 tapia=0.06 muz=1.7e-09 mu/z=0.00
+  mm_QPCBLEND.mat  i=  5 hits=0  falla(última)=1  dz/z=-0.034 tapia=0.15 muz=1.6e-08 mu/z=0.77
+  mm_QPCBLEND.mat  i=  8 hits=1  falla(última)=-  dz/z=-0.000 tapia=0.12 muz=1.3e-08 mu/z=0.07
+  mm_QPCBLEND.mat  i= 11 hits=1  falla(última)=-  dz/z=-0.011 tapia=0.13 muz=1.1e-08 mu/z=0.25
+  mm_QPCBLEND.mat  i= 13 hits=0  falla(última)=5  dz/z=-0.001 tapia=0.12 muz=1.2e-08 mu/z=1.57
+  mm_QPCBLEND.mat  i= 17 hits=1  falla(última)=-  dz/z=-0.002 tapia=0.12 muz=1.1e-08 mu/z=0.16
+  mm_QPCBLEND.mat  i= 20 hits=0  falla(última)=1  dz/z=-0.034 tapia=0.15 muz=1.5e-08 mu/z=0.00
+  mm_QPCBLEND.mat  i= 38 hits=0  falla(última)=5  dz/z=+0.004 tapia=0.11 muz=1.1e-08 mu/z=2.11
+  mm_QPCBLEND.mat  i= 42 hits=1  falla(última)=-  dz/z=+0.080 tapia=0.09 muz=3.1e-09 mu/z=0.58
+  mm_QPCBLEND.mat  i= 44 hits=1  falla(última)=-  dz/z=+0.080 tapia=0.09 muz=3.1e-09 mu/z=0.59
+  mm_QPCBLEND.mat  i= 61 hits=1  falla(última)=-  dz/z=+0.152 tapia=0.01 muz=4.1e-10 mu/z=0.11
+  mm_QPCBLEND.mat  i= 65 hits=1  falla(última)=-  dz/z=+0.017 tapia=0.11 muz=8.0e-09 mu/z=0.35
+  mm_QPCBLEND.mat  i= 73 hits=0  falla(última)=5  dz/z=-0.017 tapia=0.13 muz=1.5e-08 mu/z=9.28
+  mm_QPCBLEND.mat  i= 81 hits=0  falla(última)=5  dz/z=-0.003 tapia=0.13 muz=1.1e-08 mu/z=4.80
+  mm_QPCBLEND.mat  i= 84 hits=1  falla(última)=-  dz/z=+0.000 tapia=0.12 muz=1.0e-08 mu/z=0.23
+  mm_QPCBLEND.mat  i= 98 hits=0  falla(última)=5  dz/z=+0.000 tapia=0.12 muz=1.0e-08 mu/z=2.70
+  mm_QPCBLEND.mat  i=108 hits=0  falla(última)=5  dz/z=+0.002 tapia=0.12 muz=1.0e-08 mu/z=2.44
+  mm_QPCBLEND.mat  i=109 hits=1  falla(última)=-  dz/z=+0.003 tapia=0.12 muz=1.0e-08 mu/z=0.30
