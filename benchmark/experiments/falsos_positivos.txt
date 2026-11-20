@@ -1,0 +1,38 @@
+mm_TAME.mat      activas=  0 | ref: f=0 kkt=2.0e-19 | sin FP: kkt=0.0e+00
+mm_HS21.mat      activas=  1 | ref: f=0.04 kkt=1.1e-17 | sin FP: kkt=1.1e-17
+    FP 1 (mu max)  (n=  1): err_rel_f=1.4e-17 kkt=4.0e-02 min(Fx-d)=-4.4e-16 min_alpha=5.4e-16
+    FP 1 (mu min)  (n=  1): err_rel_f=1.4e-17 kkt=4.0e-02 min(Fx-d)=-4.4e-16 min_alpha=5.4e-16
+    FP 10%         (n=  1): err_rel_f=1.4e-17 kkt=4.0e-02 min(Fx-d)=-4.4e-16 min_alpha=5.4e-16
+    FP todas       (n=  1): err_rel_f=1.4e-17 kkt=4.0e-02 min(Fx-d)=-4.4e-16 min_alpha=5.4e-16
+mm_HS35.mat      activas=  1 | ref: f=-8.8888889 kkt=1.3e-17 | sin FP: kkt=8.9e-16
+    FP 1 (mu max)  (n=  1): err_rel_f=0.0e+00 kkt=4.4e-01 min(Fx-d)=+0.0e+00 min_alpha=1.3e-15
+    FP 1 (mu min)  (n=  1): err_rel_f=0.0e+00 kkt=4.4e-01 min(Fx-d)=+0.0e+00 min_alpha=1.3e-15
+    FP 10%         (n=  1): err_rel_f=0.0e+00 kkt=4.4e-01 min(Fx-d)=+0.0e+00 min_alpha=1.3e-15
+    FP todas       (n=  1): err_rel_f=0.0e+00 kkt=4.4e-01 min(Fx-d)=+0.0e+00 min_alpha=1.3e-15
+mm_HS53.mat      activas=  0 | ref: f=-1.9069767 kkt=4.4e-16 | sin FP: kkt=4.4e-16
+mm_DUAL1.mat     activas= 22 | ref: f=0.035012966 kkt=3.6e-14 | sin FP: kkt=3.4e-14
+    FP 1 (mu max)  (n=  1): err_rel_f=5.5e-08 kkt=5.2e-02 min(Fx-d)=+1.7e-19 min_alpha=5.1e-15
+    FP 1 (mu min)  (n=  1): err_rel_f=1.1e-08 kkt=4.2e-04 min(Fx-d)=+4.3e-15 min_alpha=1.2e-08
+    FP 10%         (n=  2): err_rel_f=5.5e-08 kkt=5.2e-02 min(Fx-d)=+1.7e-19 min_alpha=5.1e-15
+    FP todas       (n= 22): err_rel_f=5.5e-08 kkt=5.2e-02 min(Fx-d)=+1.2e-19 min_alpha=9.1e-16
+mm_DUAL2.mat     activas=  4 | ref: f=0.033733676 kkt=1.2e-15 | sin FP: kkt=8.9e-16
+    FP 1 (mu max)  (n=  1): err_rel_f=5.4e-09 kkt=2.7e-02 min(Fx-d)=+1.9e-18 min_alpha=1.5e-13
+    FP 1 (mu min)  (n=  1): err_rel_f=1.9e-09 kkt=1.3e-02 min(Fx-d)=+3.0e-17 min_alpha=5.9e-12
+    FP 10%         (n=  1): err_rel_f=5.4e-09 kkt=2.7e-02 min(Fx-d)=+1.9e-18 min_alpha=1.5e-13
+    FP todas       (n=  4): err_rel_f=5.5e-09 kkt=2.7e-02 min(Fx-d)=+5.0e-19 min_alpha=3.8e-14
+mm_DUAL3.mat     activas= 14 | ref: f=0.13575584 kkt=7.0e-11 | sin FP: kkt=6.7e-11
+    FP 1 (mu max)  (n=  1): err_rel_f=6.0e-08 kkt=7.1e-02 min(Fx-d)=+3.9e-19 min_alpha=5.0e-14
+    FP 1 (mu min)  (n=  1): err_rel_f=4.6e-08 kkt=1.2e-02 min(Fx-d)=+1.1e-16 min_alpha=7.2e-11
+    FP 10%         (n=  1): err_rel_f=6.0e-08 kkt=7.1e-02 min(Fx-d)=+3.9e-19 min_alpha=5.0e-14
+    FP todas       (n= 14): err_rel_f=6.0e-08 kkt=7.1e-02 min(Fx-d)=+5.7e-20 min_alpha=4.6e-15
+mm_DUAL4.mat     activas= 13 | ref: f=0.74609084 kkt=1.1e-14 | sin FP: kkt=1.1e-14
+    FP 1 (mu max)  (n=  1): err_rel_f=2.2e-08 kkt=3.6e-01 min(Fx-d)=+8.0e-23 min_alpha=3.5e-18
+    FP 1 (mu min)  (n=  1): err_rel_f=2.2e-08 kkt=1.4e-01 min(Fx-d)=+3.3e-21 min_alpha=3.8e-16
+    FP 10%         (n=  1): err_rel_f=2.2e-08 kkt=3.6e-01 min(Fx-d)=+8.0e-23 min_alpha=3.5e-18
+    FP todas       (n= 13): err_rel_f=2.2e-08 kkt=3.6e-01 min(Fx-d)=+8.0e-23 min_alpha=2.1e-18
+mm_QPCBLEND.mat  activas= 45 | ref: f=-0.0078425429 kkt=1.5e-10 | sin FP: kkt=1.4e-10
+    FP 1 (mu max)  (n=  1): err_rel_f=4.4e-07 kkt=3.2e+00 min(Fx-d)=+1.8e-19 min_alpha=1.1e-09
+    FP 1 (mu min)  (n=  1): err_rel_f=4.4e-08 kkt=3.0e-04 min(Fx-d)=+5.8e-14 min_alpha=4.2e-06
+    FP 10%         (n=  4): err_rel_f=4.9e-07 kkt=3.6e+00 min(Fx-d)=+1.8e-19 min_alpha=1.8e-14
+    FP todas       (n= 45): err_rel_f=4.7e-07 kkt=7.8e+00 min(Fx-d)=+1.8e-19 min_alpha=4.0e-16
+DONE

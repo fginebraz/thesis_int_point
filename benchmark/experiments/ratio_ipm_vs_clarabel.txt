@@ -1,0 +1,81 @@
+
+mm_TAME.mat  p=2  agree 2/2  Clarabel mu0=2 z0=0 amb=0  removed=2
+  Clarabel mu0 -> IPM ratio min 1.3e+08 / median 1.3e+08
+
+mm_HS21.mat  p=5  agree 5/5  Clarabel mu0=4 z0=1 amb=0  removed=4
+  Clarabel mu0 -> IPM ratio min 1.4e+10 / median 4.2e+11
+  Clarabel z0  -> IPM ratio max 2.7e-06
+
+mm_HS35.mat  p=4  agree 4/4  Clarabel mu0=3 z0=1 amb=0  removed=3
+  Clarabel mu0 -> IPM ratio min 7.9e+07 / median 1.8e+08
+  Clarabel z0  -> IPM ratio max 6.0e-07
+
+mm_HS53.mat  p=10  agree 10/10  Clarabel mu0=10 z0=0 amb=0  removed=10
+  Clarabel mu0 -> IPM ratio min 1.8e+10 / median 2.1e+10
+
+mm_DUAL4.mat  p=150  agree 150/150  Clarabel mu0=136 z0=13 amb=1  removed=136
+  Clarabel mu0 -> IPM ratio min 1.5e+05 / median 3.3e+12
+  Clarabel z0  -> IPM ratio max 2.3e-10
+
+mm_DUAL1.mat  p=170  agree 165/170  Clarabel mu0=147 z0=22 amb=1  removed=140
+  Clarabel mu0 -> IPM ratio min 5.9e+00 / median 7.3e+09
+  Clarabel z0  -> IPM ratio max 4.6e-02
+    i= 14 IPM 4.6e-02 (amb)  Clarabel 9.6e-03 (z0)  removed=False  mu=9.5e-04 z=4.3e-05
+    i= 66 IPM 3.6e+03 (mu0)  Clarabel 6.5e+04 (mu0)  removed=False  mu=5.4e-07 z=1.9e-03
+    i=102 IPM 6.5e+00 (amb)  Clarabel 2.9e+02 (mu0)  removed=False  mu=4.0e-05 z=2.6e-04
+    i=108 IPM 1.4e+02 (mu0)  Clarabel 5.5e+03 (mu0)  removed=False  mu=5.1e-06 z=7.3e-04
+    i=116 IPM 1.3e+01 (amb)  Clarabel 6.2e+02 (mu0)  removed=False  mu=2.6e-05 z=3.5e-04
+    i=142 IPM 5.9e+00 (amb)  Clarabel 3.2e+02 (mu0)  removed=False  mu=4.1e-05 z=2.4e-04
+    i=146 IPM 1.5e+02 (mu0)  Clarabel 2.7e+03 (mu0)  removed=False  mu=3.0e-06 z=4.5e-04
+    i=164 IPM 8.2e+01 (amb)  Clarabel 2.6e+03 (mu0)  removed=False  mu=6.6e-06 z=5.5e-04
+
+mm_DUAL2.mat  p=192  agree 191/192  Clarabel mu0=188 z0=4 amb=0  removed=185
+  Clarabel mu0 -> IPM ratio min 1.3e+00 / median 1.1e+11
+  Clarabel z0  -> IPM ratio max 2.2e-05
+    i=140 IPM 3.2e+02 (mu0)  Clarabel 1.8e+04 (mu0)  removed=False  mu=2.2e-06 z=6.9e-04
+    i=148 IPM 2.2e+02 (mu0)  Clarabel 1.2e+04 (mu0)  removed=False  mu=3.3e-06 z=7.4e-04
+    i=154 IPM 1.3e+00 (amb)  Clarabel 3.8e+02 (mu0)  removed=False  mu=2.2e-04 z=2.8e-04
+
+mm_DUAL3.mat  p=222  agree 220/222  Clarabel mu0=205 z0=14 amb=3  removed=202
+  Clarabel mu0 -> IPM ratio min 1.6e+01 / median 2.3e+10
+  Clarabel z0  -> IPM ratio max 8.4e-05
+    i=138 IPM 1.6e+01 (amb)  Clarabel 1.4e+03 (mu0)  removed=False  mu=1.7e-05 z=2.7e-04
+    i=154 IPM 4.9e+01 (amb)  Clarabel 3.0e+03 (mu0)  removed=False  mu=7.2e-06 z=3.5e-04
+    i=220 IPM 2.0e+02 (mu0)  Clarabel 1.2e+04 (mu0)  removed=False  mu=2.9e-06 z=5.9e-04
+
+mm_QPCBLEND.mat  p=114  agree 84/114  Clarabel mu0=67 z0=45 amb=2  removed=50
+  Clarabel mu0 -> IPM ratio min 1.1e-01 / median 1.8e+02
+  Clarabel z0  -> IPM ratio max 2.9e-03
+    i=  0 IPM 7.6e+01 (amb)  Clarabel 4.8e+04 (mu0)  removed=True  mu=1.1e-05 z=8.2e-04
+    i=  4 IPM 1.1e+01 (amb)  Clarabel 4.8e+03 (mu0)  removed=True  mu=2.4e-05 z=2.7e-04
+    i=  5 IPM 1.3e+00 (amb)  Clarabel 1.4e+03 (mu0)  removed=False  mu=1.1e-04 z=1.4e-04
+    i=  6 IPM 5.8e+01 (amb)  Clarabel 4.7e+04 (mu0)  removed=True  mu=1.5e-05 z=8.6e-04
+    i=  8 IPM 1.5e+01 (amb)  Clarabel 1.5e+04 (mu0)  removed=False  mu=3.0e-05 z=4.5e-04
+    i= 11 IPM 4.0e+00 (amb)  Clarabel 2.8e+03 (mu0)  removed=False  mu=5.3e-05 z=2.1e-04
+    i= 13 IPM 6.4e-01 (amb)  Clarabel 5.2e+02 (mu0)  removed=False  mu=1.4e-04 z=8.7e-05
+    i= 17 IPM 6.1e+00 (amb)  Clarabel 4.3e+03 (mu0)  removed=False  mu=4.1e-05 z=2.5e-04
+    i= 20 IPM 1.7e+03 (mu0)  Clarabel 1.6e+06 (mu0)  removed=False  mu=2.9e-06 z=5.0e-03
+    i= 36 IPM 3.0e-03 (z0)  Clarabel 6.4e-01 (amb)  removed=False  mu=9.9e-04 z=2.9e-06
+    i= 38 IPM 4.7e-01 (amb)  Clarabel 3.8e+02 (mu0)  removed=False  mu=1.6e-04 z=7.4e-05
+    i= 42 IPM 1.7e+00 (amb)  Clarabel 3.8e+02 (mu0)  removed=False  mu=4.3e-05 z=7.3e-05
+    i= 44 IPM 1.7e+00 (amb)  Clarabel 3.8e+02 (mu0)  removed=False  mu=4.3e-05 z=7.3e-05
+    i= 54 IPM 8.1e+01 (amb)  Clarabel 5.4e+04 (mu0)  removed=True  mu=1.1e-05 z=9.1e-04
+    i= 55 IPM 1.8e+01 (amb)  Clarabel 1.2e+04 (mu0)  removed=True  mu=2.4e-05 z=4.2e-04
+    i= 61 IPM 9.2e+00 (amb)  Clarabel 2.0e+02 (mu0)  removed=False  mu=6.7e-06 z=6.2e-05
+    i= 62 IPM 6.5e+01 (amb)  Clarabel 3.7e+04 (mu0)  removed=True  mu=1.1e-05 z=7.3e-04
+    i= 64 IPM 8.1e+01 (amb)  Clarabel 5.4e+04 (mu0)  removed=True  mu=1.1e-05 z=9.1e-04
+    i= 65 IPM 2.9e+00 (amb)  Clarabel 1.5e+03 (mu0)  removed=False  mu=5.3e-05 z=1.5e-04
+    i= 68 IPM 1.1e+01 (amb)  Clarabel 8.0e+03 (mu0)  removed=True  mu=3.3e-05 z=3.7e-04
+    i= 73 IPM 1.1e-01 (amb)  Clarabel 1.1e+02 (mu0)  removed=False  mu=3.7e-04 z=4.0e-05
+    i= 76 IPM 1.8e+01 (amb)  Clarabel 1.3e+04 (mu0)  removed=True  mu=2.5e-05 z=4.4e-04
+    i= 81 IPM 2.1e-01 (amb)  Clarabel 1.5e+02 (mu0)  removed=False  mu=2.3e-04 z=4.8e-05
+    i= 82 IPM 4.1e-03 (z0)  Clarabel 7.2e+00 (amb)  removed=False  mu=2.8e-03 z=1.1e-05
+    i= 84 IPM 4.3e+00 (amb)  Clarabel 3.0e+03 (mu0)  removed=False  mu=4.9e-05 z=2.1e-04
+    i= 85 IPM 7.8e+01 (amb)  Clarabel 5.3e+04 (mu0)  removed=True  mu=1.2e-05 z=8.9e-04
+    i= 86 IPM 1.9e+01 (amb)  Clarabel 1.4e+04 (mu0)  removed=True  mu=2.4e-05 z=4.6e-04
+    i= 94 IPM 1.6e+01 (amb)  Clarabel 1.1e+04 (mu0)  removed=True  mu=2.6e-05 z=4.1e-04
+    i= 98 IPM 3.7e-01 (amb)  Clarabel 2.5e+02 (mu0)  removed=False  mu=1.7e-04 z=6.2e-05
+    i=108 IPM 4.1e-01 (amb)  Clarabel 2.9e+02 (mu0)  removed=False  mu=1.6e-04 z=6.5e-05
+    i=109 IPM 3.3e+00 (amb)  Clarabel 2.3e+03 (mu0)  removed=False  mu=5.6e-05 z=1.8e-04
+
+DONE

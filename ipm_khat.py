@@ -178,7 +178,13 @@ def extra_iterations(S, use_khat=True, extra_iters=EXTRA_ITERS, kappa_at=KAPPA_A
             P, x, lamda, mu, z, sigma, tau, keep, S["k"] + i)
         traj.append(dict(kkt=kkt_norm(P, x, lamda, mu, z), f=f(x), alpha=alpha,
                          kappa=float(np.linalg.cond(K, 1)) if (i + 1) in kappa_at else None))
-    return dict(x=x, lamda=lamda, mu=mu, z=z, extra=traj, f=f(x),
+    # kappa of the matrix at the final point (after all extra iterations), same reduction
+    kappa_final = None
+    if kappa_at:
+        rx, rl, _ = residuals(P, x, lamda, mu, z)
+        Kf, _ = build_K(P, x, mu, z, tau, rx, rl, keep)
+        kappa_final = float(np.linalg.cond(Kf, 1))
+    return dict(x=x, lamda=lamda, mu=mu, z=z, extra=traj, f=f(x), kappa_final=kappa_final,
                 kkt=kkt_norm(P, x, lamda, mu, z), dim=S["n"] + S["m"] + len(keep))
 
 

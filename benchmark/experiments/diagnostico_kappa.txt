@@ -1,0 +1,10 @@
+lp_grow7.mat     n=301 m=140 act=85 inact=215 amb=1 marked=205 unmarked_inact=10 | rows=225 rank=225 smin=2.3e-01 | kK=1.2e+09 kKh=1.2e+09 kKh_allinact=5.6e+06
+lp_blend.mat     n=114 m=74 act=31 inact=83 amb=0 marked=82 unmarked_inact=1 | rows=105 rank=102 smin=1.7e-16 | kK=1.4e+17 kKh=1.4e+17 kKh_allinact=1.4e+17
+lp_kb2.mat       n=68 m=43 act=25 inact=43 amb=0 marked=18 unmarked_inact=25 | rows=68 rank=64 smin=1.4e-16 | kK=5.3e+10 kKh=5.3e+10 kKh_allinact=5.3e+10
+lp_stocfor1.mat  n=165 m=117 act=55 inact=110 amb=0 marked=110 unmarked_inact=0 | rows=172 rank=164 smin=1.2e-16 | kK=3.9e+13 kKh=3.9e+13 kKh_allinact=3.9e+13
+lp_scsd6.mat     n=1350 m=147 act=1190 inact=157 amb=3 marked=157 unmarked_inact=0 | rows=1337 rank=1297 smin=1.3e-16 | kK=2.2e+13 kKh=2.2e+13 kKh_allinact=2.2e+13
+lp_stair.mat     n=614 m=356 act=211 inact=403 amb=0 marked=402 unmarked_inact=1 | rows=567 rank=551 smin=3.7e-16 | kK=2.4e+18 kKh=2.4e+18 kKh_allinact=2.4e+18
+lp_sctap1.mat    n=660 m=300 act=259 inact=401 amb=0 marked=401 unmarked_inact=0 | rows=559 rank=537 smin=4.5e-16 | kK=2.8e+19 kKh=3.3e+19 kKh_allinact=3.3e+19
+lp_grow15.mat    n=645 m=300 act=145 inact=500 amb=0 marked=476 unmarked_inact=24 | rows=445 rank=445 smin=1.9e-01 | kK=5.8e+08 kKh=5.8e+08 kKh_allinact=3.3e+06
+lp_grow22.mat    n=946 m=440 act=197 inact=747 amb=2 marked=689 unmarked_inact=58 | rows=637 rank=637 smin=1.9e-01 | kK=2.0e+07 kKh=1.9e+07 kKh_allinact=6.7e+06
+lp_scsd1.mat     n=760 m=77 act=705 inact=52 amb=3 marked=50 unmarked_inact=2 | rows=782 rank=740 smin=4.8e-17 | kK=8.9e+11 kKh=5.3e+11 kKh_allinact=5.3e+11
